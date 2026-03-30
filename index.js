@@ -14,7 +14,8 @@ app.get("/api/health",(req,res)=>{
     })
 })
 
-app.use("/api/insta", require("./routes/auth"))
+app.use("/api/auth", require("./routes/auth"))
+app.use("/api/post", require("./routes/post"))
 
 const PORT = process.env.PORT || 2000
 
