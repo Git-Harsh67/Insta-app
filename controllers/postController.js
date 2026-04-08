@@ -64,9 +64,8 @@ exports.delPost = async (req, res) => {
         const ID = req.params.id
         const myPosts = await Post.findById(ID)
 
-        // console.log(myPosts)
         // console.log(myPosts.postedBy.toString() === req.user)
-        
+
         if (myPosts.postedBy.toString() === req.user) {
             const del = await Post.findByIdAndDelete(ID)
             return res.status(200).json({
@@ -81,4 +80,106 @@ exports.delPost = async (req, res) => {
             error
         })
     }
+}
+
+exports.likePost = async (req, res) => {
+    try {
+        const postID = req.params.id
+        const user = await Post.findById(postID)
+
+        // console.log(user)
+        // console.log(req.user)
+
+        if (user) {
+
+            const addLike = await Post.findByIdAndUpdate(postID,
+                {
+                    $addToSet: {
+                        likes: req.user
+                    },
+
+                },
+                {
+                    new: true
+                }
+            )
+
+            return res.status(200).json({
+                msg: "add like",
+                userPost: addLike
+            })
+
+        }
+
+    } catch (error) {
+        return res.status(400).json({
+            error
+        })
+    }
+}
+
+exports.unLikePost = async (req, res) => {
+    try {
+        const postID = req.params.id
+        const user = await Post.findById(postID)
+
+        // console.log(user)
+        // console.log(req.user)
+
+        if (user) {
+
+            const addLike = await Post.findByIdAndUpdate(postID,
+                {
+                    $pull: {
+                        likes: req.user
+                    },
+
+                },
+                {
+                    new: true
+                }
+            )
+
+            return res.status(200).json({
+                msg: "add like",
+                userPost: addLike
+            })
+
+        }
+
+    } catch (error) {
+        return res.status(400).json({
+            error
+        })
+    }
+}
+
+exports.comment = async (req, res) => {
+    try {
+        const PostID = req.params.id
+        const user = await Post.findById(PostID)
+
+        if (user) {
+            const addComment = await Post.findByIdAndUpdate(PostID,
+                {
+                    $push: {
+                        comment:{
+                            text : req.body.comment
+                        }
+                    },
+                    new: true
+                }
+            )
+
+            return res.status(200).json({
+                msg: "comment added",
+                user: addComment
+            })
+        }
+    } catch (error) {
+        return res.status(400).json({
+            error
+        })
+    }
+
 }
