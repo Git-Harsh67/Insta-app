@@ -29,7 +29,7 @@ exports.createPost = async (req, res) => {
 
 exports.allPost = async (req, res) => {
     try {
-        const allPosts = await Post.find()
+        const allPosts = await Post.find().populate("postedBy", "name _id")
 
         return res.status(200).json({
             msg: "=Successfully fetch all post",
@@ -46,7 +46,7 @@ exports.myPost = async (req, res) => {
     try {
         const myPosts = await Post.find({
             postedBy: req.user
-        })
+        }).populate("postedBy", "name _id")
 
         return res.status(200).json({
             msg: "Successfully fetch all post",
@@ -96,7 +96,7 @@ exports.likePost = async (req, res) => {
                 {
                     $addToSet: {
                         likes: req.user
-                    },
+                    }
 
                 },
                 {
@@ -121,7 +121,7 @@ exports.likePost = async (req, res) => {
 exports.unLikePost = async (req, res) => {
     try {
         const postID = req.params.id
-        const user = await Post.findById(postID)
+        const user = await Post.findById(postID).populate("postedBy", "name _id")
 
         // console.log(user)
         // console.log(req.user)
@@ -163,13 +163,17 @@ exports.comment = async (req, res) => {
             const addComment = await Post.findByIdAndUpdate(PostID,
                 {
                     $push: {
-                        comment:{
-                            text : req.body.comment
+                        comment: {
+                            text: req.body.comment,
+                            postedBy: req.user
                         }
-                    },
+                    }
+                },
+                {
                     new: true
                 }
-            )
+            ).populate("postedBy", " name _id")
+                .populate("comment.postedBy", " name _id");
 
             return res.status(200).json({
                 msg: "comment added",
@@ -183,3 +187,58 @@ exports.comment = async (req, res) => {
     }
 
 }
+
+exports.delComment = async (req, res) => {
+    try {
+        const PostID = req.params.id
+        const post = await Post.findById(PostID)
+        const ID = req.body.commentID
+
+        if (!post) {
+            return res.status(422).json({
+                msg: "Can not find the post"
+            })
+        }
+
+        const commentDetail = post.comment.find(e => e._id.toString() === ID)
+
+        if (!commentDetail) {
+            return res.status(400).json({
+                msg: "Can't find this comment"
+            })
+        }
+
+        if (post.postedBy.toString() === req.user && post) {
+
+            console.log("hiii")
+            // console.log(commentID.toString())
+
+            const unComment = await Post.findByIdAndUpdate(PostID, {
+                $pull: {
+                    comment: { _id: commentDetail._id.toString() }
+                }
+            },
+                {
+                    returnDocument: 'after' 
+                })
+            return res.status(200).json({
+                msg: "comment removed",
+                user: unComment
+            })
+        }
+
+    } catch (error) {
+        return res.status(400).json({
+            msg: "Post is not Deleted",
+            error
+        })
+    }
+
+}
+
+// exports.test = async (req, res) => {
+//         const PostID = "69d4c532f0a9ac7badeee7c3"
+//         const user = await Post.findById(PostID).populate("postedBy" , "name email")
+
+// console.log(user)
+// }
