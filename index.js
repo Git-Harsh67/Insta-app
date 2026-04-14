@@ -16,6 +16,7 @@ app.get("/api/health",(req,res)=>{
 
 app.use("/api/auth", require("./routes/auth"))
 app.use("/api/post", require("./routes/post"))
+app.use("/api/user", require("./routes/user"))
 
 const PORT = process.env.PORT || 2000
 

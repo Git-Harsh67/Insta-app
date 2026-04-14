@@ -201,7 +201,7 @@ exports.delComment = async (req, res) => {
         }
 
         const commentDetail = post.comment.find(e => e._id.toString() === ID)
-
+        console.log(commentDetail)
         if (!commentDetail) {
             return res.status(400).json({
                 msg: "Can't find this comment"

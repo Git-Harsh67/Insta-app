@@ -8,7 +8,7 @@ exports.signUp = async (req, res) => {
 
   if (!name || !email || !password) {
     res.status(422).json({
-      msg: "al,lllllllll field required",
+      msg: "all field required",
     });
   }
 
