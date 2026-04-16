@@ -3,7 +3,7 @@ const verifyToken = require("../middlewares/postmiddle")
 const { follow , unfollow , userProfile} = require("../controllers/userController")
 const router = express.Router()
 
-router.put("/profile",verifyToken , userProfile )
+router.get("/profile",verifyToken , userProfile )
 router.put("/follow",verifyToken , follow )
 router.put("/unfollow",verifyToken , unfollow )
 
