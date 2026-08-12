@@ -1,17 +1,19 @@
 require("dotenv").config()
 const express = require("express")
 const dataBase = require("./config/mongoDB")
+const cors = require("cors")
 const app = express()
 
 dataBase()
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 app.get("/api/health",(req,res)=>{
     res.status(200).json({
         msg:"qwerty"
-    })
+    })                                                                          
 })
 
 app.use("/api/auth", require("./routes/auth"))

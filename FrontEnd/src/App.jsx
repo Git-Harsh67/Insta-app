@@ -3,6 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import "./App.css";
+import LoginCard from "./component/LoginCard";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -26,44 +27,7 @@ function App() {
           />
         </div>
         {/* right side */}
-        <div className="flex flex-col bg-gray-900 border-l-2 border-l-gray-600 w-[45vw] text-white pl-12">
-          <form className="flex flex-col gap-6  text-gray-300">
-            <p className="mb-2 mt-15 text-xl">Log into Instagram</p>
-            <div>
-              <p className="pb-1">Email</p>
-              <input
-                className="border rounded-lg py-2 px-4 w-[35vw] outline-none"
-                type="text"
-                name=""
-                placeholder="your email"
-                id=""
-              />
-            </div>
-            <div>
-              <p className="pb-1">Password</p>
-              <input
-                className="border rounded-lg py-2 px-4 w-[35vw] outline-none"
-                type="text"
-                name=""
-                placeholder="your password"
-                id=""
-              />
-            </div>
-
-            <button className=" bg-blue-700 rounded-4xl outline-none py-2 px-4 w-[35vw] font-semibold">
-              Log in
-            </button>
-            <div className="flex items-center ">
-            <hr className="w-[11vw] " />
-            <p className="px-2">If don't have account</p>
-            <hr className=" w-[11vw] " />
-            </div>
-            <button className=" bg-green-800 rounded-4xl outline-none py-2 px-4 w-[35vw] font-semibold mt-3">
-              Create new account
-            </button>
-          </form>
-        </div>
-
+        <LoginCard />
         {/* <div className="flex flex-col bg-gray-900 border-l-2 border-l-gray-600 w-[45vw] text-white pl-12">
           <form className="flex flex-col gap-4 text-gray-300">
             <div>
