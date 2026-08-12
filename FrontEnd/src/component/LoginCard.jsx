@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { login } from "../api/auth";
 
-const LoginCard = () => {
+const LoginCard = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const userInfo = {
     email,
-    password,
+    password
   };
 
   return (
@@ -16,11 +16,13 @@ const LoginCard = () => {
           try {
             e.preventDefault();
             const data = await login(userInfo);
-            console.log(data);
+            setEmail("");
+            setPassword("");
           } catch (error) {
             console.log("Status:", error.response?.status);
-            console.log("Data:", error.response?.data);
-            console.log("Headers:", error.response?.headers);
+            // console.log("data:", error.response?.data);
+            alert( error.response?.data.msg);
+            // console.log("Headers:", error.response?.headers);
           }
         }}
         className="flex flex-col gap-6  text-gray-300"
@@ -30,9 +32,11 @@ const LoginCard = () => {
           <p className="pb-1">Email</p>
           <input
             onChange={(e) => {
-              setEmail(e.target.value);
+              setTimeout(()=>{
+                setEmail(e.target.value);
+              },600)
             }}
-            value={email}
+
             className="border rounded-lg py-2 px-4 w-[35vw] outline-none"
             type="text"
             placeholder="your email"
@@ -43,9 +47,11 @@ const LoginCard = () => {
           <p className="pb-1">Password</p>
           <input
             onChange={(e) => {
-              setPassword(e.target.value);
+              setTimeout(()=>{
+                setPassword(e.target.value);
+              },600)
             }}
-            value={password}
+
             className="border rounded-lg py-2 px-4 w-[35vw] outline-none"
             type="text"
             placeholder="your password"
@@ -63,7 +69,13 @@ const LoginCard = () => {
         <hr className=" w-[11vw] " />
       </div>
 
-      <button className=" bg-green-800 rounded-4xl outline-none py-2 px-4 w-[35vw] font-semibold mt-6">
+      <button
+        onClick={(e) => {
+          props.setToSignCard(true);
+          props.setToLogCard(false);
+        }}
+        className=" bg-green-800 rounded-4xl outline-none py-2 px-4 w-[35vw] font-semibold mt-6"
+      >
         Create new account
       </button>
     </div>
