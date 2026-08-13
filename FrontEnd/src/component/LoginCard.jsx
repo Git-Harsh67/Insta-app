@@ -16,13 +16,10 @@ const LoginCard = (props) => {
           try {
             e.preventDefault();
             const data = await login(userInfo);
-            setEmail("");
-            setPassword("");
+            console.log(data)
           } catch (error) {
             console.log("Status:", error.response?.status);
-            // console.log("data:", error.response?.data);
             alert( error.response?.data.msg);
-            // console.log("Headers:", error.response?.headers);
           }
         }}
         className="flex flex-col gap-6  text-gray-300"

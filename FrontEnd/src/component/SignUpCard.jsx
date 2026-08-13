@@ -21,9 +21,9 @@ const SignUpCard = (props) => {
             alert("signUp completed");
             props.setToSignCard(false);
             props.setToLogCard(true);
-            setName("")
-            setEmail("")
-            setPassword("")
+            setName("");
+            setEmail("");
+            setPassword("");
           } catch (error) {
             console.log("Status:", error.response?.status);
             alert(error.response?.data.msg);
@@ -33,7 +33,19 @@ const SignUpCard = (props) => {
         className="flex flex-col gap-4 text-gray-300"
       >
         <div>
-          <p className=" mt-18 text-2xl font-semibold">
+          <button className="mt-5 "
+            onClick={(e) => {
+              props.setToSignCard(false);
+              props.setToLogCard(true);
+            }}
+          >
+            <img
+              className="w-[2vw]"
+              src="./arrow_logo.png"
+              alt="Arrow logo"
+            />
+          </button>
+          <p className=" mt-5 text-2xl font-semibold">
             Get started on Instagram
           </p>
           <p className="mb-2">
