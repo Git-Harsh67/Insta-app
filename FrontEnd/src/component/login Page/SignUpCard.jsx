@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { signUp } from "../api/auth";
+import { signUp } from "../../api/auth";
 
 const SignUpCard = (props) => {
   const [name, setName] = useState("");
