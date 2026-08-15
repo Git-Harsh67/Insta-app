@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import LeftSide from "./LeftSideOfHome";
-import LoginCard from "../LoginCard";
+import LoginCard from "./LoginCard";
 import SignUpCard from "./SignUpCard";
 
 const Log_Sign_Page = () => {

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { login } from "../api/auth";
+import {login} from "../../api/auth";
 
 const LoginCard = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const userInfo = {
     email,
-    password
+    password,
   };
 
   return (
@@ -16,10 +16,10 @@ const LoginCard = (props) => {
           try {
             e.preventDefault();
             const data = await login(userInfo);
-            console.log(data)
+            console.log(data);
           } catch (error) {
             console.log("Status:", error.response?.status);
-            alert( error.response?.data.msg);
+            alert(error.response?.data.msg);
           }
         }}
         className="flex flex-col gap-6  text-gray-300"
@@ -29,11 +29,10 @@ const LoginCard = (props) => {
           <p className="pb-1">Email</p>
           <input
             onChange={(e) => {
-              setTimeout(()=>{
+              setTimeout(() => {
                 setEmail(e.target.value);
-              },600)
+              }, 600);
             }}
-
             className="border rounded-lg py-2 px-4 w-[35vw] outline-none"
             type="text"
             placeholder="your email"
@@ -44,11 +43,10 @@ const LoginCard = (props) => {
           <p className="pb-1">Password</p>
           <input
             onChange={(e) => {
-              setTimeout(()=>{
+              setTimeout(() => {
                 setPassword(e.target.value);
-              },600)
+              }, 600);
             }}
-
             className="border rounded-lg py-2 px-4 w-[35vw] outline-none"
             type="text"
             placeholder="your password"
