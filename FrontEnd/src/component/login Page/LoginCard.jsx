@@ -17,6 +17,8 @@ const LoginCard = (props) => {
             e.preventDefault();
             const data = await login(userInfo);
             console.log(data);
+            props.setToAuth(false)
+            props.setToHome(true)
           } catch (error) {
             console.log("Status:", error.response?.status);
             alert(error.response?.data.msg);
