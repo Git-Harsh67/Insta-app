@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {login} from "../../api/auth";
+import { login } from "../../api/auth";
 
 const LoginCard = (props) => {
   const [email, setEmail] = useState("");
@@ -13,15 +13,13 @@ const LoginCard = (props) => {
     <div className="flex flex-col bg-gray-900 border-l-2 border-l-gray-600 w-[45vw] text-white pl-12">
       <form
         onSubmit={async (e) => {
-          try {
-            e.preventDefault();
-            const data = await login(userInfo);
-            console.log(data);
-            props.setToAuth(false)
-            props.setToHome(true)
-          } catch (error) {
-            console.log("Status:", error.response?.status);
-            alert(error.response?.data.msg);
+          e.preventDefault();
+          const data = await login(userInfo);
+          if (!data) {
+            alert(error.response?.data.msg || "login failed ");
+          }else{
+          props.setToAuth(false)
+          props.setToHome(true)
           }
         }}
         className="flex flex-col gap-6  text-gray-300"

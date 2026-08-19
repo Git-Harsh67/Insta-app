@@ -13,6 +13,7 @@ const InstaPage = () => {
 
       <Cards postImg="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT61_2nhui8CrXuWZW2KSRP_1jdFgsT3r6gqlJXXBJ39hrtQrHbY40xdr0&s=10" />
     </div>
+    <div><button>log out</button></div>
     </main>
   );
 };
