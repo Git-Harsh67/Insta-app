@@ -15,11 +15,10 @@ const LoginCard = (props) => {
         onSubmit={async (e) => {
           e.preventDefault();
           const data = await login(userInfo);
+          localStorage.setItem("token", data.token)
+          alert("welcome")
           if (!data) {
             alert(error.response?.data.msg || "login failed ");
-          }else{
-          props.setToAuth(false)
-          props.setToHome(true)
           }
         }}
         className="flex flex-col gap-6  text-gray-300"

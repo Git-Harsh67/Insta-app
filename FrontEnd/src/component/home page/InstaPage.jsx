@@ -2,7 +2,7 @@ import React from "react";
 import Nav from "./Nav";
 import Cards from "./Cards";
 
-const InstaPage = () => {
+const InstaPage = (props) => {
   return (
     <main className="flex bg-gray-950 gap-x-12 ">
     <div className="bg-gray-950 h-dvh fixed">
@@ -13,7 +13,9 @@ const InstaPage = () => {
 
       <Cards postImg="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT61_2nhui8CrXuWZW2KSRP_1jdFgsT3r6gqlJXXBJ39hrtQrHbY40xdr0&s=10" />
     </div>
-    <div><button>log out</button></div>
+    <div ><button onClick={()=>{
+      props.setToken(localStorage.removeItem("token"))
+    }} className="p-1 text-white bg-gray-600 ">log out</button></div>
     </main>
   );
 };

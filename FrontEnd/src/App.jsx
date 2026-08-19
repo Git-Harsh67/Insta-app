@@ -4,16 +4,13 @@ import InstaPage from "./component/home page/InstaPage";
 import Log_Sign_Page from "./component/login Page/Log_SignPage";
 
 function App() {
-  const [toAuth,setToAuth] = useState(true);
-  const [toHome,setToHome] = useState(false);
+  const [token, setToken] = useState(
+    localStorage.getItem("token")
+  );
+
   return (
     <>
-      {toAuth === true && (
-        <Log_Sign_Page setToAuth={setToAuth} setToHome={setToHome} />
-      )}
-      {toHome === true && (
-        <InstaPage setToAuth={setToAuth} setToHome={setToHome} />
-      )}
+      {token ? <InstaPage setToken={setToken} /> : <Log_Sign_Page /> }
     </>
   );
 }

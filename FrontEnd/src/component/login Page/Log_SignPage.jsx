@@ -19,8 +19,6 @@ const Log_Sign_Page = (props) => {
 
         {toLogCard === true && (
           <LoginCard
-            setToAuth={props.setToAuth}
-            setToHome={props.setToHome}
             setToSignCard={setToSignCard}
             setToLogCard={setToLogCard}
           />
