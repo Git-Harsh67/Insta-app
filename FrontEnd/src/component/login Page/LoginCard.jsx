@@ -15,9 +15,13 @@ const LoginCard = (props) => {
         onSubmit={async (e) => {
           e.preventDefault();
           const data = await login(userInfo);
-          localStorage.setItem("token", data.token)
-          alert("welcome")
-          if (!data) {
+          try {
+            if (data && data.token) {
+              localStorage.setItem("token", data.token);
+              props.setToken(data.token);
+              alert("welcome");
+            }
+          } catch (error) {
             alert(error.response?.data.msg || "login failed ");
           }
         }}
