@@ -12,8 +12,9 @@ const InstaPage = () => {
         <Nav setToUser={setToUser} setToHome={setToHome}/>
       </div>
       <div>
-         {toHome === true && <Home />}
-        {toUser === true && <UserPage />} 
+         {/* {toHome === true && <Home />}
+        {toUser === true && <UserPage />}  */}
+       < UserPage />
       </div>
     </main>
   );
