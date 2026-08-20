@@ -1,6 +1,6 @@
 import React from "react";
 
-const Nav = () => {
+const Nav = (props) => {
   return (
     <nav className="flex flex-col gap-y-6 h-screen w-[7vw] items-center border-r-2 border-gray-600 ">
       <button>
@@ -10,10 +10,20 @@ const Nav = () => {
           alt="insta_logo"
         />
       </button>
-      <button>
+      <button
+        onClick={() => {
+          props.setToUser(false);
+          props.setToHome(true);
+        }}
+      >
         <img className="w-[2vw]" src="./home_logo.png" alt="home_logo" />
       </button>
-      <button>
+      <button
+        onClick={() => {
+          props.setToUser(true);
+          props.setToHome(false);
+        }}
+      >
         <img className="w-[2vw]" src="./user_logo.png" alt="user_logo" />
       </button>
     </nav>
