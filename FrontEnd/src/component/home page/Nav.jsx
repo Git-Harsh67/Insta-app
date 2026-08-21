@@ -5,7 +5,7 @@ const Nav = (props) => {
     <nav className="flex flex-col gap-y-6 h-screen w-[7vw] items-center border-r-2 border-gray-600 ">
       <button>
         <img
-          className="w-[2vw] mt-10 mb-6 "
+          className="w-[3vw] mt-10 mb-6 "
           src="./insta_logo.png"
           alt="insta_logo"
         />
@@ -25,6 +25,9 @@ const Nav = (props) => {
         }}
       >
         <img className="w-[2vw]" src="./user_logo.png" alt="user_logo" />
+      </button>
+      <button>
+        <img className="w-[2vw]" src="./search_logo.png" alt="search_logo" />
       </button>
     </nav>
   );

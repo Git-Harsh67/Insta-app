@@ -3,7 +3,7 @@ const UserPage = () => {
     <>
       <div className="h-screen ml-77 mt-15">
         <div className="flex gap-x-6 items-center">
-          <div>
+          <div >
             <img
               className="w-34 h-34 border border-white rounded-full object-cover"
               src="./user_logo.png"
