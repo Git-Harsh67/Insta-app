@@ -1,13 +1,12 @@
-const UserPage = () => {
+const UserPage = (props) => {
   return (
     <>
       <div className="flex flex-col h-screen ml-77 mt-15 items-center">
         <div className="flex gap-x-16 items-center">
           <div>
             <img
-              className="w-24 h-24 border border-white rounded-full object-cover"
+              className="w-24 h-24 border border-white rounded-full"
               src="./user_logo.png"
-              alt=""
             />
           </div>
           <div className="flex flex-col gap-y-2 text-white ">
