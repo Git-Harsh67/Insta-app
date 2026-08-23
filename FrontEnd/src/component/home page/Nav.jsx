@@ -2,7 +2,7 @@ import React from "react";
 
 const Nav = (props) => {
   return (
-    <nav className="flex flex-col gap-y-6 h-screen w-[7vw] items-center border-r-2 border-gray-600 ">
+    <nav className="flex flex-col gap-y-10 h-screen w-[7vw] items-center border-r-2 border-gray-600 ">
       <button>
         <img
           className="w-[3vw] mt-10 mb-6 "
@@ -28,6 +28,9 @@ const Nav = (props) => {
       </button>
       <button>
         <img className="w-[2vw]" src="./search_logo.png" alt="search_logo" />
+      </button>
+      <button>
+        <img className="w-[2vw]" src="./plus.png" alt="search_logo" />
       </button>
     </nav>
   );

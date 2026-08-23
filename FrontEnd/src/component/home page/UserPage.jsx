@@ -5,7 +5,7 @@ const UserPage = () => {
         <div className="flex gap-x-16 items-center">
           <div>
             <img
-              className="w-34 h-34 border border-white rounded-full object-cover"
+              className="w-24 h-24 border border-white rounded-full object-cover"
               src="./user_logo.png"
               alt=""
             />
@@ -43,7 +43,7 @@ const UserPage = () => {
         <div>
           <div className="flex justify-evenly w-[50vw] mt-12 border-white border-b pb-4 gap-x-12">
             <img className="w-[2vw]" src="profile_logo.png" alt="" />
-            <img className="w-[2vw]" src="heart_logo.png" alt="" />
+            <img className="w-[2vw]" src="White_heart.png" alt="" />
           </div>
         </div>
         <div>
