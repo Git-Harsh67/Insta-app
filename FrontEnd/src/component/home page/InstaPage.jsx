@@ -18,6 +18,7 @@ const InstaPage = () => {
         {toUser === true && <UserPage />} 
         {toPost === true && <Post />} 
       </div>
+      <Post />
     </main>
   );
 };
