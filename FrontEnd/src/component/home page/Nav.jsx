@@ -10,32 +10,32 @@ const Nav = (props) => {
           alt="insta_logo"
         />
       </button>
+      {/* home page */}
       <button
         onClick={() => {
           props.setToUser(false);
-          props.setToPost(false);
           props.setToHome(true);
         }}
       >
         <img className="w-[2vw]" src="./home_logo.png" alt="home_logo" />
       </button>
+      {/* user page */}
       <button
         onClick={() => {
           props.setToUser(true);
-          props.setToPost(false);
           props.setToHome(false);
         }}
       >
         <img className="w-[2vw]" src="./user_logo.png" alt="user_logo" />
       </button>
+      {/* search page */}
       <button>
         <img className="w-[2vw]" src="./search_logo.png" alt="search_logo" />
       </button>
+      {/* create post */}
       <button
         onClick={() => {
-          props.setToUser(false);
           props.setToPost(true);
-          props.setToHome(false);
         }}
       >
         <img className="w-[2vw]" src="./plus.png" alt="plus_logo" />
