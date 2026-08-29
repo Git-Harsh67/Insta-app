@@ -114,7 +114,7 @@ const Cards = (props) => {
         <div className="flex items-center gap-x-3">
           <button>
             <img
-              className="w-7 h-7 border rounded-full"
+              className="w-7 h-7 border rounded-full object-contain"
               src="./user_logo.png"
               alt="profile pic"
             />
