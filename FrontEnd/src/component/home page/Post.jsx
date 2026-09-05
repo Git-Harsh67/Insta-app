@@ -72,34 +72,72 @@ const Post = (props) => {
                 {captionCard === true && (
                   <div>
                     <form>
-                    <div className="flex justify-between bg-gray-950 py-2 px-4 text-xl w-[28vw]">
-                      <button
-                        onClick={() => {
-                          (setImgUrl(""), setShowImg(false));
-                        }}
-                      >
-                        <img
-                          src="./arrow_logo.png"
-                          className="w-[1.5vw]"
-                          alt="arrow_logo"
-                        />
-                      </button>
-                      <p className=" text-white  text-center ">
-                        Create new post
-                      </p>
-                      <button
-                        onClick={() => {
-                          console.log("posted")
-                        }}
-                        className="text-blue-400 font-extralight"
-                      >
-                        Post
-                      </button>
-                    </div>
-                    <div className="text-white w-[28vw] h-[60vh] border border-dashed border-gray-600 rounded-b-2xl object-contain bg-gray-900">
-                      <p>Caption for your post</p>
-                      <input type="text" name="" id="" />
-                    </div>
+                      <div className="flex justify-between bg-gray-950 py-2 px-4 text-xl w-[28vw]">
+                        <button
+                          onClick={() => {
+                            (setImgUrl(""), setShowImg(false));
+                          }}
+                        >
+                          <img
+                            src="./arrow_logo.png"
+                            className="w-[1.5vw]"
+                            alt="arrow_logo"
+                          />
+                        </button>
+                        <p className=" text-white  text-center ">
+                          Create new post
+                        </p>
+                        <button
+                          onClick={() => {
+                            console.log("posted");
+                          }}
+                          className="text-blue-400 font-extralight"
+                        >
+                          Post
+                        </button>
+                      </div>
+                      <div className="flex flex-col text-white w-[28vw] h-[60vh] border border-dashed border-gray-600 rounded-b-2xl bg-gray-900 p-3">
+                        {/* Heading */}
+                        <div className="mb-4">
+                          <p className="text-lg font-medium">
+                            Add caption and description
+                          </p>
+                        </div>
+
+                        {/* Title */}
+                        <div className="mb-2">
+                          <label className="block text-sm text-gray-400 mb-2">
+                            Title
+                          </label>
+
+                          <input
+                            type="text"
+                            placeholder="Give your post a title..."
+                            className="w-full bg-gray-800/60 border border-gray-700 rounded-xl
+                 outline-none text-white px-4 py-3
+                 placeholder-gray-500
+                 focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                 transition"
+                          />
+                        </div>
+
+                        {/* Description */}
+                        <div className="flex-1">
+                          <label className="block text-sm text-gray-400 mb-2">
+                            Description
+                          </label>
+
+                          <textarea
+                            placeholder="Write something about your post..."
+                            className="w-full bg-gray-800/60 border border-gray-700
+                 rounded-xl outline-none text-white px-4 py-3
+                 placeholder-gray-500 resize-none
+                 focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                 transition"
+                          />
+                        </div>
+                      </div>
+
                     </form>
                   </div>
                 )}
