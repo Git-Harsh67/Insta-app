@@ -1,4 +1,4 @@
-// const axios = require("axios")
+
 import axios from "axios"
 const baseURL = import.meta.env.VITE_AUTH_URL
 

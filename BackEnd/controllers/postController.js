@@ -2,15 +2,14 @@ const Post = require("../models/post")
 
 exports.createPost = async (req, res) => {
     try {
-        const { title, description, postedBy, photo } = req.body
+        const { description, postedBy, photo } = req.body
 
-        if (!title || !description) {
+        if (!photo || !description) {
             return res.status(422).json({
                 msg: "All field required "
             })
         }
-        const post = Post.create({
-            title,
+        const post = await Post.create({
             description,
             postedBy: req.user,
             photo

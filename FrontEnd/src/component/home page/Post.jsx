@@ -1,9 +1,15 @@
 import { useState } from "react";
+import { createPost } from "../../api/post";
 
 const Post = (props) => {
   const [imgUrl, setImgUrl] = useState("");
   const [showImg, setShowImg] = useState(false);
   const [captionCard, setcaptionCard] = useState(false);
+  const [description, setDescription] = useState("");
+  const postDis = {
+    description,
+    photo: imgUrl,
+  };
   return (
     <>
       <div className="fixed inset-0 z-50 bg-gray-900/70 ">
@@ -71,7 +77,13 @@ const Post = (props) => {
                 )}
                 {captionCard === true && (
                   <div>
-                    <form>
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        createPost(postDis);
+                        props.setToPost(false);
+                      }}
+                    >
                       <div className="flex justify-between bg-gray-950 py-2 px-4 text-xl w-[28vw]">
                         <button
                           onClick={() => {
@@ -88,9 +100,7 @@ const Post = (props) => {
                           Create new post
                         </p>
                         <button
-                          onClick={() => {
-                            console.log("posted");
-                          }}
+                          type="submit"
                           className="text-blue-400 font-extralight"
                         >
                           Post
@@ -104,23 +114,6 @@ const Post = (props) => {
                           </p>
                         </div>
 
-                        {/* Title */}
-                        <div className="mb-2">
-                          <label className="block text-sm text-gray-400 mb-2">
-                            Title
-                          </label>
-
-                          <input
-                            type="text"
-                            placeholder="Give your post a title..."
-                            className="w-full bg-gray-800/60 border border-gray-700 rounded-xl
-                 outline-none text-white px-4 py-3
-                 placeholder-gray-500
-                 focus:border-blue-500 focus:ring-1 focus:ring-blue-500
-                 transition"
-                          />
-                        </div>
-
                         {/* Description */}
                         <div className="flex-1">
                           <label className="block text-sm text-gray-400 mb-2">
@@ -128,16 +121,16 @@ const Post = (props) => {
                           </label>
 
                           <textarea
+                            onChange={() => {
+                              setTimeout((e) => {
+                                setDescription(e.target.value);
+                              }, 400);
+                            }}
                             placeholder="Write something about your post..."
-                            className="w-full bg-gray-800/60 border border-gray-700
-                 rounded-xl outline-none text-white px-4 py-3
-                 placeholder-gray-500 resize-none
-                 focus:border-blue-500 focus:ring-1 focus:ring-blue-500
-                 transition"
+                            className="w-full h-[30vh] bg-gray-800/60 border border-gray-700 rounded-xl outline-none text-white px-4 py-3 placeholder-gray-500 resize-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
                           />
                         </div>
                       </div>
-
                     </form>
                   </div>
                 )}
