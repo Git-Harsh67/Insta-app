@@ -7,7 +7,7 @@ const Post = (props) => {
   const [captionCard, setcaptionCard] = useState(false);
   const [description, setDescription] = useState("");
   const postDis = {
-    description,
+    description: description,
     photo: imgUrl,
   };
   return (
@@ -80,8 +80,12 @@ const Post = (props) => {
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
-                        createPost(postDis);
-                        props.setToPost(false);
+                        try {
+                          createPost(postDis);
+                          props.setToPost(false);
+                        } catch (error) {
+                          console.log(error)
+                        }
                       }}
                     >
                       <div className="flex justify-between bg-gray-950 py-2 px-4 text-xl w-[28vw]">
@@ -121,8 +125,8 @@ const Post = (props) => {
                           </label>
 
                           <textarea
-                            onChange={() => {
-                              setTimeout((e) => {
+                            onChange={(e) => {
+                              setTimeout(() => {
                                 setDescription(e.target.value);
                               }, 400);
                             }}
