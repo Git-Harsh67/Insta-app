@@ -1,20 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { allPost } from "../../api/post";
-import Cards from "./Cards"
+import Cards from "./Cards";
 
-const Home = async() => {
-  const [posts, setPosts]= useState([])
+const Home = () => {
+  const [posts, setPosts] = useState([]);
+
+  async function result() {
+    const res = await allPost();
+    return setPosts(res);
+  }
+
+  useEffect(() => {
+    result()
+  });
+  
   return (
-    <div className="flex flex-col items-center ml-67 h-screen">
-      {setPosts(await allPost())}
-      {/* <Cards postImg="" discription="" name=""/> */}
-      {posts.map((e)=>{
-        <Cards postImg={e.photo} discription={e.discription} name={e.name}/> 
-      })}
-
+    <div className="flex flex-col items-center ml-67 ">
+      {posts.map((e) => 
+        <Cards key={e._id} postImg={e.photo} description={e.description} name={e.postedBy.name} />
+      )}
     </div>
   );
 };
 
-
-export default Home
+export default Home;

@@ -1,7 +1,8 @@
-
+import React from "react";  
+  
 const Cards = (props) => {
   return (
-    <div className="w-[40vw] rounded-md border-gray-500 text-white bg-gray-900 mt-6 mb-6 overflow-hidden ">
+    <div className="w-[40vw] h-auto rounded-md border-gray-500 text-white bg-gray-900 mt-6 mb-6 overflow-hidden ">
 
       <div className="flex items-center justify-between py-2 px-4">
         <div className="flex items-center gap-x-3">
@@ -49,7 +50,7 @@ const Cards = (props) => {
         </button>
       </div>
 
-      <p className="ml-4 my-2">{props.discription}</p>
+      <p className="ml-4 my-2">{props.description}</p>
     </div>
   );
 };
