@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      {token ? <InstaPage setToken={setToken} /> : <Log_Sign_Page setToken={setToken}/> }
+      {token  ? <InstaPage setToken={setToken} /> : <Log_Sign_Page setToken={setToken}/> }
     </>
   );
 }

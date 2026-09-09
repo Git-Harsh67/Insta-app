@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { createPost } from "../../api/post";
+import { uploadImage } from "../../utils/uploadImage";
 
 const Post = (props) => {
   const [imgUrl, setImgUrl] = useState("");
+  const [mainImgUrl, setMainImgUrl] = useState("");
   const [showImg, setShowImg] = useState(false);
   const [captionCard, setcaptionCard] = useState(false);
   const [description, setDescription] = useState("");
   const postDis = {
     description: description,
-    photo: imgUrl,
+    photo: mainImgUrl,
   };
   return (
     <>
@@ -26,9 +28,15 @@ const Post = (props) => {
                   </button>
                   <p className="text-gray-400">Upload image</p>
                   <input
-                    onChange={(e) => {
+                    onChange={async (e) => {
+                      const file = e.target.files[0];
+
                       setImgUrl(URL.createObjectURL(e.target.files[0]));
                       setShowImg(true);
+
+                      const cloudinaryUrl = await uploadImage(file);
+                      setMainImgUrl(cloudinaryUrl)
+
                     }}
                     className="hidden"
                     id="input"
@@ -84,7 +92,7 @@ const Post = (props) => {
                           createPost(postDis);
                           props.setToPost(false);
                         } catch (error) {
-                          console.log(error)
+                          console.log(error);
                         }
                       }}
                     >

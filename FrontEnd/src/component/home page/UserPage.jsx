@@ -32,7 +32,8 @@ const UserPage = (props) => {
           </div>
           <button
             onClick={() => {
-              props.setToken(localStorage.removeItem("token"));
+              localStorage.removeItem("token");
+              props.setToken(null);
             }}
             className="p-1 h-9 text-white bg-red-600 "
           >
