@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <div className="flex flex-col items-center ml-67 ">
       {posts.map((e) => 
-        <Cards key={e._id} postImg={e.photo} description={e.description} name={e.postedBy.name} />
+        <Cards key={e._id} like={e.likes.length} postImg={e.photo} description={e.description} name={e.postedBy.name} />
       )}
     </div>
   );
