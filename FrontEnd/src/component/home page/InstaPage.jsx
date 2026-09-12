@@ -1,7 +1,7 @@
 import Nav from "./Nav";
 import Home from "./Home";
 import UserPage from "./UserPage";
-import { useState } from "react";
+import { createContext, useState } from "react";
 import Post from "./Post";
 
 const InstaPage = (props) => {
@@ -15,7 +15,7 @@ const InstaPage = (props) => {
       </div>
       <div>
         {toHome === true && <Home />}
-        {toUser === true && <UserPage setToken={props.setToken}/>} 
+        {toUser === true && <UserPage />} 
       </div>
         {toPost === true && <Post setToPost={setToPost}/>} 
     </main>

@@ -1,14 +1,18 @@
 import "./App.css";
-import { useState } from "react";
+import { createContext, useState } from "react";
 import InstaPage from "./component/home page/InstaPage";
 import Log_Sign_Page from "./component/login Page/Log_SignPage";
+
+export const homeContext = createContext()
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   return (
     <>
-      {token  ? <InstaPage setToken={setToken} /> : <Log_Sign_Page setToken={setToken}/> }
+    <homeContext.Provider value={setToken}>
+      {token  ? <InstaPage /> : <Log_Sign_Page /> }
+    </homeContext.Provider>
     </>
   );
 }

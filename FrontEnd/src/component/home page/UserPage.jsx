@@ -1,4 +1,8 @@
-const UserPage = (props) => {
+import { useContext } from "react";
+import { homeContext } from "../../App";
+
+const UserPage = () => {
+  const setToken = useContext(homeContext)
   return (
     <>
       <div className="flex flex-col h-screen ml-77 mt-15 items-center">
@@ -33,7 +37,7 @@ const UserPage = (props) => {
           <button
             onClick={() => {
               localStorage.removeItem("token");
-              props.setToken(null);
+              setToken(null);
             }}
             className="p-1 h-9 text-white bg-red-600 "
           >

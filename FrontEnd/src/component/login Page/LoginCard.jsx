@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { login } from "../../api/auth";
+import { homeContext } from "../../App";
 
-const LoginCard = (props) => {
+const LoginCard = () => {
+
+  const setToken = useContext(homeContext)
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const userInfo = {
@@ -15,10 +19,12 @@ const LoginCard = (props) => {
         onSubmit={async (e) => {
           e.preventDefault();
           const data = await login(userInfo);
+          {console.log(data)}
+          {console.log(data.token)}
           try {
             if (data && data.token) {
               localStorage.setItem("token", data.token);
-              props.setToken(data.token);
+              setToken(data.token);
               alert("welcome");
             }
           } catch (error) {
