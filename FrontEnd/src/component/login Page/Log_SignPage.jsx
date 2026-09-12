@@ -4,7 +4,7 @@ import LeftSide from "./LeftSideOfHome";
 import LoginCard from "./LoginCard";
 import SignUpCard from "./SignUpCard";
 
-const Log_Sign_Page = (props) => {
+const Log_Sign_Page = () => {
   const [toSignCard, setToSignCard] = useState(false);
   const [toLogCard, setToLogCard] = useState(true);
 
@@ -19,7 +19,6 @@ const Log_Sign_Page = (props) => {
 
         {toLogCard === true && (
           <LoginCard
-            setToken={props.setToken}
             setToSignCard={setToSignCard}
             setToLogCard={setToLogCard}
           />
