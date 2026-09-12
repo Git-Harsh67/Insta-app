@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 import InstaPage from "./component/home page/InstaPage";
 import Log_Sign_Page from "./component/login Page/Log_SignPage";
 
-export const homeContext = createContext()
+export const Context = createContext()
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));

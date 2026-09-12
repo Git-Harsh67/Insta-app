@@ -4,7 +4,7 @@ import UserPage from "./UserPage";
 import { createContext, useState } from "react";
 import Post from "./Post";
 
-const InstaPage = (props) => {
+const InstaPage = () => {
   const[toHome, setToHome]=useState(true)
   const[toUser, setToUser]=useState(false)
   const[toPost, setToPost]=useState(false)

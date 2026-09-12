@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { homeContext } from "../../App";
+import { Context } from "../../App";
 
 const UserPage = () => {
-  const setToken = useContext(homeContext)
+  const setToken = useContext(Context)
   return (
     <>
       <div className="flex flex-col h-screen ml-77 mt-15 items-center">

@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { login } from "../../api/auth";
-import { homeContext } from "../../App";
+import { Context } from "../../App";
 
 const LoginCard = () => {
 
-  const setToken = useContext(homeContext)
+  const setToken = useContext(Context)
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
