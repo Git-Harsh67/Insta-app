@@ -1,6 +1,9 @@
-import React from "react";
+import { useContext } from "react";
+import { Context } from "../../App";
 
 const Nav = (props) => {
+  const setToken = useContext(Context);
+
   return (
     <nav className="flex flex-col gap-y-10 h-screen w-[7vw] items-center border-r-2 border-gray-600 ">
       <button>
@@ -39,6 +42,14 @@ const Nav = (props) => {
         }}
       >
         <img className="w-[2vw]" src="./plus.png" alt="plus_logo" />
+      </button>
+      <button
+        onClick={() => {
+          localStorage.removeItem("token");
+          setToken(null);
+        }}
+      >
+        <img className="w-[2vw] mt-14" src="./logout_logo.png" alt="plus_logo" />
       </button>
     </nav>
   );

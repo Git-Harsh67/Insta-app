@@ -10,9 +10,9 @@ function App() {
 
   return (
     <>
-    <homeContext.Provider value={setToken}>
+    <Context.Provider value={setToken}>
       {token  ? <InstaPage /> : <Log_Sign_Page /> }
-    </homeContext.Provider>
+    </Context.Provider>
     </>
   );
 }

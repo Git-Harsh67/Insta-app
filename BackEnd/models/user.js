@@ -16,7 +16,7 @@ const userDetails = new mongoose.Schema({
     },
     pic: {
         type: String,
-        defaultPic: ""
+        required: true
     },
     followers: [
         {

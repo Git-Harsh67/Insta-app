@@ -10,7 +10,7 @@ const Post = (props) => {
   const [description, setDescription] = useState("");
   const postDis = {
     description: description,
-    photo: mainImgUrl,
+    photo: mainImgUrl
   };
   return (
     <>
