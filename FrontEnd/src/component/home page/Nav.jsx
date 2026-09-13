@@ -5,10 +5,10 @@ const Nav = (props) => {
   const setToken = useContext(Context);
 
   return (
-    <nav className="flex flex-col gap-y-10 h-screen w-[7vw] items-center border-r-2 border-gray-600 ">
+    <nav className="flex flex-col gap-y-10 h-screen w-[9vw] items-center border-r-2 border-gray-600 ">
       <button>
         <img
-          className="w-[3vw] mt-10 mb-6 "
+          className="w-[2.5vw] mt-10 mb-6 "
           src="./insta_logo.png"
           alt="insta_logo"
         />
