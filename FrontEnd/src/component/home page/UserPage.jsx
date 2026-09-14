@@ -1,5 +1,6 @@
 import { useState } from "react";
 import EditPage from "./EditPage";
+import ChangeImg from "./ChangeImg";
 
 const UserPage = () => {
   const [userImg,setUserImg] = useState("")
@@ -57,6 +58,7 @@ const UserPage = () => {
       )}
 
       {showEditPage === true && <EditPage setShowEditPage={setShowEditPage} setBio={setBio}/>}
+      <ChangeImg />
     </>
   );
 };

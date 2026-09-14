@@ -19,6 +19,7 @@ const EditPage = (props) => {
           e.preventDefault();
           try {
             props.setShowEditPage(false);
+            console.log(">>")
           } catch (error) {
             console.log(error);
           }
@@ -44,7 +45,7 @@ const EditPage = (props) => {
 
             {/* change btn */}
             <div>
-              <button className="border-none rounded-lg bg-blue-700 py-2 px-5 font-semibold" >
+              <button type="button" onClick={()=>{}} className="border-none rounded-lg bg-blue-700 py-2 px-5 font-semibold" >
                 Change photo
               </button>
             </div>
@@ -66,7 +67,7 @@ const EditPage = (props) => {
           </div>
           {/* submit btn */}
           <div className="text-end ">
-            <button type="submit" className="border-none rounded-lg bg-green-700 py-2 px-5 mt-6 font-semibold">
+            <button type="submit" name="action" value="submit" className="border-none rounded-lg bg-green-700 py-2 px-5 mt-6 font-semibold">
               Submit
             </button>
           </div>
