@@ -1,7 +1,7 @@
 import Nav from "./Nav";
 import Home from "./Home";
 import UserPage from "./UserPage";
-import { createContext, useState } from "react";
+import { useState } from "react";
 import Post from "./Post";
 
 const InstaPage = () => {

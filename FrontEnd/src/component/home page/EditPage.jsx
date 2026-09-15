@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { UserPageContext } from "./UserPage";
 
-const EditPage = (props) => {
+
+const EditPage = () => {
+  const {setShowEditPage ,setBio, setShowChangeImgCard, userImg} = useContext(UserPageContext)
+
   return (
     <div className="h-screen w-[55vw] ml-[25vw] text-white">
       {/* back btn */}
       <div className="fixed top-5 right-5">
         <img
           onClick={() => {
-            props.setShowEditPage(false);
+            setShowEditPage(false);
           }}
           className="w-[2vw]"
           src="./arrow_logo.png"
@@ -18,8 +22,7 @@ const EditPage = (props) => {
         onSubmit={(e) => {
           e.preventDefault();
           try {
-            props.setShowEditPage(false);
-            console.log(">>")
+            setShowEditPage(false);
           } catch (error) {
             console.log(error);
           }
@@ -34,8 +37,8 @@ const EditPage = (props) => {
             {/* user detail */}
             <div className="flex items-center gap-x-[2vw]">
               <img
-                className="w-[5vw] h-[5vw] border border-white rounded-full"
-                src="./user_logo.png"
+                className="w-[5vw] h-[5vw] border border-white rounded-full object-cover"
+                src={userImg || `./user_logo.png`}
               />
               <div>
                 <p className="font-semibold text-xl">Username</p>
@@ -45,7 +48,9 @@ const EditPage = (props) => {
 
             {/* change btn */}
             <div>
-              <button type="button" onClick={()=>{}} className="border-none rounded-lg bg-blue-700 py-2 px-5 font-semibold" >
+              <button type="button" onClick={()=>{
+                setShowChangeImgCard(true)
+              }} className="border-none rounded-lg bg-blue-700 py-2 px-5 font-semibold" >
                 Change photo
               </button>
             </div>
@@ -58,7 +63,7 @@ const EditPage = (props) => {
             <textarea
               onChange={(e) => {
                 setTimeout(() => {
-                  props.setBio(e.target.value);
+                  setBio(e.target.value);
                 }, 600);
               }}
               placeholder="bio"
