@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import EditPage from "./EditPage";
 import ChangeImg from "./ChangeImg";
+import { userProfile } from "../../api/user";
 
 export const UserPageContext = createContext();
 
@@ -13,6 +14,9 @@ const UserPage = () => {
     img: userImg,
     discription: bio,
   };
+  useEffect(()=>{
+   console.log(userProfile(userDetail))
+  })
   return (
     <>
       <UserPageContext.Provider
