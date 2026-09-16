@@ -20,6 +20,31 @@ exports.userProfile = async (req, res) => {
 
 }
 
+exports.editProfile = async (req, res) => {
+    try {
+        const { userName, pic, bio } = req.body
+
+        const user = await User.findByIdAndUpdate(req.user,
+            {
+                userName,
+                pic,
+                bio
+            }, {
+            new: true
+        })
+
+        return res.status(200).json({
+            msg: "Profile updated successfully",
+            user
+        })
+    } catch (error) {
+        return res.status(400).json({
+            msg: "error , something is wrong",
+            error
+        })
+    }
+}
+
 exports.follow = async (req, res) => {
     try {
         const userToFollow = req.body.followID

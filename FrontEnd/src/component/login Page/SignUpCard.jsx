@@ -3,9 +3,11 @@ import { signUp } from "../../api/auth";
 
 const SignUpCard = (props) => {
   const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const userInfo = {
+    userName,
     name,
     email,
     password,
@@ -14,10 +16,11 @@ const SignUpCard = (props) => {
   return (
     <div className="flex flex-col bg-gray-900 border-l-2 border-l-gray-600 w-[45vw] text-white pl-12">
       <form
-        onSubmit={async (e) => {
+        onSubmit={ (e) => {
+          {console.log(signUp(userInfo))}
           try {
             e.preventDefault();
-            await signUp(userInfo);
+            signUp(userInfo);
             alert("signUp completed");
             props.setToSignCard(false);
             props.setToLogCard(true);
@@ -33,17 +36,14 @@ const SignUpCard = (props) => {
         className="flex flex-col gap-4 text-gray-300"
       >
         <div>
-          <button className="mt-5 "
+          <button
+            className="mt-5 "
             onClick={(e) => {
               props.setToSignCard(false);
               props.setToLogCard(true);
             }}
           >
-            <img
-              className="w-[2vw]"
-              src="./arrow_logo.png"
-              alt="Arrow logo"
-            />
+            <img className="w-[2vw]" src="./arrow_logo.png" alt="Arrow logo" />
           </button>
           <p className=" mt-5 text-2xl font-semibold">
             Get started on Instagram
@@ -52,6 +52,7 @@ const SignUpCard = (props) => {
             Sign up to see photos and videos from your friends.
           </p>
         </div>
+        {/* Name */}
         <div>
           <p className="pb-1">Name</p>
           <input
@@ -66,6 +67,22 @@ const SignUpCard = (props) => {
             id=""
           />
         </div>
+        {/* user name */}
+        <div>
+          <p className="pb-1">User Name</p>
+          <input
+            onChange={(e) => {
+              setTimeout(() => {
+                setUserName(e.target.value);
+              }, 600);
+            }}
+            className="border rounded-lg py-2 px-4 w-[35vw] outline-none"
+            type="text"
+            placeholder="your user name"
+            id=""
+          />
+        </div>
+        {/* Email */}
         <div>
           <p className="pb-1">Email</p>
           <input
@@ -80,7 +97,7 @@ const SignUpCard = (props) => {
             id=""
           />
         </div>
-
+         {/* password */}
         <div>
           <p className="pb-1">Set password</p>
           <input

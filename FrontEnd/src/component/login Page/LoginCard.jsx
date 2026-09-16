@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { login } from "../../api/auth";
 import { Context } from "../../App";
 
-const LoginCard = () => {
+const LoginCard = (props) => {
 
   const setToken = useContext(Context)
 
@@ -74,7 +74,7 @@ const LoginCard = () => {
       </div>
 
       <button
-        onClick={(e) => {
+        onClick={() => {
           props.setToSignCard(true);
           props.setToLogCard(false);
         }}

@@ -16,16 +16,15 @@ const userDetails = new mongoose.Schema({
         required: true
     }, 
     bio: {
-        type: String,
-        required: true
+        type: String
     }, 
     userName: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     pic: {
-        type: String,
-        required: true
+        type: String
     },
     followers: [
         {

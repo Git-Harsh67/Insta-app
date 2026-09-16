@@ -4,19 +4,24 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
 exports.signUp = async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password, pic, userName, bio } = req.body;
 
-  if (!name || !email || !password) {
+  if (!userName || !name || !email || !password) {
     res.status(422).json({
       msg: "all field required",
     });
   }
 
-  const userExist = await User.findOne({ email });
+  const userExist = await User.findOne({
+    $or: [
+      { email },
+      { userName }
+    ]
+  });
 
   if (userExist) {
     res.status(400).json({
-      msg: "this email is already exist",
+      msg: "this email or your user name already exist",
     });
   } else {
     const securePassword = await bcrypt.hash(password, 10);
@@ -27,6 +32,8 @@ exports.signUp = async (req, res) => {
       email,
       password: securePassword,
       pic,
+      bio,
+      userName
     });
 
     user.save();
