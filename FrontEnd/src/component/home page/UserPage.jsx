@@ -7,25 +7,35 @@ export const UserPageContext = createContext();
 
 const UserPage = () => {
   const [userImg, setUserImg] = useState("");
+  const [userName, setUserName] = useState("");
   const [showEditPage, setShowEditPage] = useState(false);
   const [showChangeImgCard, setShowChangeImgCard] = useState(false);
   const [bio, setBio] = useState("");
-  const userDetail = {
-    img: userImg,
-    discription: bio,
+  const [detail, setDetail] = useState({});
+
+  const userDetails = async () => {
+    const data = await userProfile();
+    setDetail(data.user);
+    return detail;
   };
-  useEffect(()=>{
-   console.log(userProfile(userDetail))
-  })
+
+  useEffect(() => {
+    userDetails();
+  });
   return (
     <>
       <UserPageContext.Provider
         value={{
+          userImg,
+          userName,
+          bio,
+          detail,
+          setUserName,
           setShowEditPage,
           setBio,
           setShowChangeImgCard,
           setUserImg,
-          userImg
+          userImg,
         }}
       >
         {showEditPage === false && (
@@ -33,13 +43,13 @@ const UserPage = () => {
             <div className="flex gap-x-16 items-center">
               <div>
                 <img
-                  className="w-30 h-30 border border-white rounded-full object-cover"
-                  src={userImg || `./user_logo.png`}
+                  className="w-30 h-30 border-none rounded-full object-cover"
+                  src={detail.pic || `./user_logo.png`}
                 />
               </div>
               <div className="flex flex-col gap-y-2 text-white ">
-                <p className="font-bold text-3xl">userName</p>
-                <p>Name</p>
+                <p className="font-bold text-3xl">{detail.userName}</p>
+                <p>{detail.name}</p>
 
                 <div className="flex gap-x-4 ">
                   <p>
@@ -53,7 +63,9 @@ const UserPage = () => {
                   </p>
                 </div>
 
-                <p className="max-w-md max-h-[15vh] overflow-hidden">{bio}</p>
+                <p className="max-w-md max-h-[15vh] overflow-hidden">
+                  {detail.bio}
+                </p>
               </div>
             </div>
             <div>
