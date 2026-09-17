@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserPageContext } from "./UserPage";
 import { uploadImage } from "../../utils/uploadImage";
 
-const ChangeImg = () => {
+const ChangeImg = (props) => {
   const { setShowChangeImgCard, setUserImg } = useContext(UserPageContext);
   return (
     <div className="fixed inset-0 z-50 bg-gray-900/70 ">
@@ -24,7 +24,7 @@ const ChangeImg = () => {
                 const imgFile = e.target.files[0];
                 const imgURl = await uploadImage(imgFile);
                 if (imgURl) {
-                  setUserImg(imgURl);
+                  props.setEditUserImg(imgURl);
                   setShowChangeImgCard(false);
                 }
               }}

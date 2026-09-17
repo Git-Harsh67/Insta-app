@@ -1,23 +1,20 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserPageContext } from "./UserPage";
 import { editProfile } from "../../api/user";
+import ChangeImg from "./ChangeImg";
 
 const EditPage = () => {
-  const {
-    setShowEditPage,
-    setBio,
-    setShowChangeImgCard,
-    setUserName,
-    userImg,
-    userName,
-    bio,
-    detail,
-  } = useContext(UserPageContext);
+  const { setShowEditPage, setShowChangeImgCard, showChangeImgCard, detail } =
+    useContext(UserPageContext);
+
+  const [editUserName, setEditUserName] = useState(detail.userName);
+  const [editUserImg, setEditUserImg] = useState(detail.pic);
+  const [editBio, setEditBio] = useState(detail.bio);
 
   const changes = {
-    pic: userImg,
-    userName: userName,
-    bio: bio,
+    pic: editUserImg,
+    userName: editUserName,
+    bio: editBio,
   };
 
   return (
@@ -38,9 +35,11 @@ const EditPage = () => {
         onSubmit={async (e) => {
           e.preventDefault();
           try {
-            // console.log("done");
             await editProfile(changes);
             setShowEditPage(false);
+            detail.userName = editUserName;
+            detail.pic = editUserImg;
+            detail.bio = editBio;
           } catch (error) {
             console.log(error);
           }
@@ -56,10 +55,11 @@ const EditPage = () => {
             <div className="flex items-center gap-x-[2vw]">
               <img
                 className="w-[5vw] h-[5vw] border-none rounded-full object-cover"
-                src={detail.pic || `./user_logo.png`}
+                src={editUserImg}
+                // `./user_logo.png`
               />
               <div>
-                <p className="font-semibold text-xl">{detail.userName}</p>
+                <p className="font-semibold text-xl">{editUserName}</p>
                 <p>{detail.name}</p>
               </div>
             </div>
@@ -84,9 +84,9 @@ const EditPage = () => {
               User name
             </label>
             <input
-              value={detail.userName || ""}
+              value={editUserName}
               onChange={(e) => {
-                setUserName(e.target.value);
+                setEditUserName(e.target.value);
               }}
               type="text"
               placeholder="user name"
@@ -97,11 +97,10 @@ const EditPage = () => {
           {/* bio input */}
           <div>
             <label className="mt-4 block text-xl font-semibold ">Bio</label>
-
             <textarea
-                value={detail.bio || ""}
+              value={editBio}
               onChange={(e) => {
-                setBio(e.target.value);
+                setEditBio(e.target.value);
               }}
               placeholder="bio"
               className="w-full h-[15vh] bg-gray-800/60 border border-gray-700 rounded-xl outline-none px-4 py-3 mt-2 placeholder-gray-500 resize-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
@@ -121,6 +120,9 @@ const EditPage = () => {
           </div>
         </div>
       </form>
+      {showChangeImgCard === true && (
+        <ChangeImg setEditUserImg={setEditUserImg} />
+      )}
     </div>
   );
 };

@@ -1,27 +1,27 @@
 import { createContext, useEffect, useState } from "react";
 import EditPage from "./EditPage";
-import ChangeImg from "./ChangeImg";
 import { userProfile } from "../../api/user";
 
 export const UserPageContext = createContext();
 
 const UserPage = () => {
+  const [detail, setDetail] = useState([]);
   const [userImg, setUserImg] = useState("");
   const [userName, setUserName] = useState("");
+  const [bio, setBio] = useState("");
   const [showEditPage, setShowEditPage] = useState(false);
   const [showChangeImgCard, setShowChangeImgCard] = useState(false);
-  const [bio, setBio] = useState("");
-  const [detail, setDetail] = useState({});
 
   const userDetails = async () => {
     const data = await userProfile();
     setDetail(data.user);
-    return detail;
+    console.log(".")
   };
 
   useEffect(() => {
     userDetails();
-  });
+  },[]);
+
   return (
     <>
       <UserPageContext.Provider
@@ -30,12 +30,13 @@ const UserPage = () => {
           userName,
           bio,
           detail,
+          userImg,
+          showChangeImgCard,
           setUserName,
           setShowEditPage,
           setBio,
           setShowChangeImgCard,
           setUserImg,
-          userImg,
         }}
       >
         {showEditPage === false && (
@@ -93,7 +94,6 @@ const UserPage = () => {
         )}
 
         {showEditPage === true && <EditPage />}
-        {showChangeImgCard === true && <ChangeImg />}
       </UserPageContext.Provider>
     </>
   );
