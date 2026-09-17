@@ -22,16 +22,20 @@ exports.userProfile = async (req, res) => {
 
 exports.editProfile = async (req, res) => {
     try {
-        const { userName, pic, bio } = req.body
 
-        const user = await User.findByIdAndUpdate(req.user,
+        const { bio, pic, userName } = req.body
+
+        const updateValue = {}
+
+         if (userName !== undefined) updateValue.userName = userName
+         if (pic !== undefined) updateValue.pic = pic
+         if (bio !== undefined) updateValue.bio = bio
+
+        const user = await User.findByIdAndUpdate(req.user,updateValue,
             {
-                userName,
-                pic,
-                bio
-            }, {
-            new: true
-        })
+                returnDocument: 'after'
+            }
+        )
 
         return res.status(200).json({
             msg: "Profile updated successfully",

@@ -14,7 +14,7 @@ const EditPage = () => {
     detail,
   } = useContext(UserPageContext);
 
-  const userDetail = {
+  const changes = {
     pic: userImg,
     userName: userName,
     bio: bio,
@@ -38,7 +38,8 @@ const EditPage = () => {
         onSubmit={async (e) => {
           e.preventDefault();
           try {
-            await editProfile(userDetail);
+            // console.log("done");
+            await editProfile(changes);
             setShowEditPage(false);
           } catch (error) {
             console.log(error);
@@ -83,16 +84,14 @@ const EditPage = () => {
               User name
             </label>
             <input
+              value={detail.userName || ""}
               onChange={(e) => {
-                setTimeout(() => {
-                  setUserName(e.target.value);
-                }, 600);
+                setUserName(e.target.value);
               }}
               type="text"
               placeholder="user name"
               className="w-full h-[8vh] bg-gray-800/60 border border-gray-700 rounded-xl outline-none px-4 py-3 mt-2 placeholder-gray-500 resize-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
             />
-
           </div>
 
           {/* bio input */}
@@ -100,10 +99,9 @@ const EditPage = () => {
             <label className="mt-4 block text-xl font-semibold ">Bio</label>
 
             <textarea
+                value={detail.bio || ""}
               onChange={(e) => {
-                setTimeout(() => {
-                  setBio(e.target.value);
-                }, 600);
+                setBio(e.target.value);
               }}
               placeholder="bio"
               className="w-full h-[15vh] bg-gray-800/60 border border-gray-700 rounded-xl outline-none px-4 py-3 mt-2 placeholder-gray-500 resize-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
