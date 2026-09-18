@@ -15,7 +15,6 @@ const UserPage = () => {
   const userDetails = async () => {
     const data = await userProfile();
     setDetail(data.user);
-    console.log(".")
   };
 
   useEffect(() => {
@@ -88,7 +87,8 @@ const UserPage = () => {
               </div>
             </div>
             <div>
-              <p className="text-white text-4xl text-center mt-12">no posts</p>
+              {/* <p className="text-white text-4xl text-center mt-12">no posts</p> */}
+               <div className="border bg-amber-300 w-[25vw] h-[65vh]"  ></div>
             </div>
           </div>
         )}

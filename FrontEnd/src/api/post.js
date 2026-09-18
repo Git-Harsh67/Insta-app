@@ -20,3 +20,12 @@ export const allPost = async () => {
         })
     return res.data.allPosts
 }
+
+export const myPost = async () =>{
+    const res = await axios.get(`${baseURL}/myPost`,{
+        headers:{
+            Authorization : `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    return res.data
+}
