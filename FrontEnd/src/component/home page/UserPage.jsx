@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import EditPage from "./EditPage";
 import { userProfile } from "../../api/user";
+import { myPost } from "../../api/post";
 
 export const UserPageContext = createContext();
 
@@ -11,15 +12,22 @@ const UserPage = () => {
   const [bio, setBio] = useState("");
   const [showEditPage, setShowEditPage] = useState(false);
   const [showChangeImgCard, setShowChangeImgCard] = useState(false);
+  const [userPosts, setUserPosts] = useState([]);
 
   const userDetails = async () => {
     const data = await userProfile();
     setDetail(data.user);
   };
 
+  const posts = async () => {
+    const data = await myPost();
+    setUserPosts(data.myPosts)
+  };
+
   useEffect(() => {
     userDetails();
-  },[]);
+    posts();
+  }, []);
 
   return (
     <>
@@ -39,7 +47,7 @@ const UserPage = () => {
         }}
       >
         {showEditPage === false && (
-          <div className="flex flex-col h-screen ml-[25vw] pt-15 items-center">
+          <div className="flex flex-col h-screen ml-[20vw] pt-5 items-center bg-gray-950">
             <div className="flex gap-x-16 items-center">
               <div>
                 <img
@@ -86,9 +94,17 @@ const UserPage = () => {
                 <img className="w-[2vw]" src="White_heart.png" alt="" />
               </div>
             </div>
-            <div>
-              {/* <p className="text-white text-4xl text-center mt-12">no posts</p> */}
-               <div className="border bg-amber-300 w-[25vw] h-[65vh]"  ></div>
+            {/* <p className="text-white text-4xl text-center mt-12">no posts</p> */}
+            <div className="flex flex-wrap gap-1 mt-1 bg-gray-950 columns-3">
+              {/* {console.log(userPosts)} */}
+              {userPosts.map((e)=>
+              <div key={e._id} className=" bg-gray-600 ">
+                <img
+                  className=" w-80 h-100 object-contain "
+                  src={e.photo}
+                />
+              </div>
+              )}
             </div>
           </div>
         )}

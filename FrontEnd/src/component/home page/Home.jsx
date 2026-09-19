@@ -15,7 +15,7 @@ const Home = () => {
   });
 
   return (
-    <div className="flex flex-col items-center ml-[25vw] h-screen">
+    <div className="flex flex-col items-center ml-[25vw] ">
       {posts.length === 0 && (
         <div className="flex justify-center h-screen items-center font-bold text-white text-4xl text-center ml-[20vw]">
           <p>There are no posts yet</p>
