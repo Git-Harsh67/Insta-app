@@ -21,7 +21,7 @@ const UserPage = () => {
 
   const posts = async () => {
     const data = await myPost();
-    setUserPosts(data.myPosts)
+    setUserPosts(data.myPosts);
   };
 
   useEffect(() => {
@@ -47,8 +47,12 @@ const UserPage = () => {
         }}
       >
         {showEditPage === false && (
-          <div className="flex flex-col h-screen ml-[20vw] pt-5 items-center bg-gray-950">
-            <div className="flex gap-x-16 items-center">
+          <div
+            className={`flex flex-col pt-5 ml-[20vw] items-center bg-gray-950 ${
+              userPosts.length === 0 ? "h-screen" : ""
+            }`}
+          >
+            <div className="flex gap-x-16  items-center">
               <div>
                 <img
                   className="w-30 h-30 border-none rounded-full object-cover"
@@ -89,23 +93,32 @@ const UserPage = () => {
 
             {/* user post and liked post */}
             <div>
-              <div className="flex justify-evenly w-[50vw] mt-12 border-white border-b pb-4 gap-x-12">
+              <div className="flex justify-evenly w-[60vw] mt-12 border-gray-600 border-b pb-4 gap-x-12">
                 <img className="w-[2vw]" src="profile_logo.png" alt="" />
                 <img className="w-[2vw]" src="White_heart.png" alt="" />
               </div>
             </div>
-            {/* <p className="text-white text-4xl text-center mt-12">no posts</p> */}
-            <div className="flex flex-wrap gap-1 mt-1 bg-gray-950 columns-3">
-              {/* {console.log(userPosts)} */}
-              {userPosts.map((e)=>
-              <div key={e._id} className=" bg-gray-600 ">
-                <img
-                  className=" w-80 h-100 object-contain "
-                  src={e.photo}
-                />
+
+            {userPosts.length === 0 && (
+              <div className="flex justify-center items-center h-[40vh]">
+                <p className="text-white text-2xl font-medium text-center">
+                  no posts
+                </p>
               </div>
-              )}
-            </div>
+            )}
+
+            {userPosts.length !== 0 && (
+              <div className="grid grid-cols-3 gap-1 mt-1 bg-gray-950 ">
+                {userPosts.map((e) => (
+                  <div key={e._id} className=" bg-gray-900 ">
+                    <img
+                      className=" w-80 h-100 object-contain "
+                      src={e.photo}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 

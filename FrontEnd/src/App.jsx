@@ -9,7 +9,7 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   return (
-    <>
+    < >
     <Context.Provider value={setToken}>
       {token  ? <InstaPage /> : <Log_Sign_Page /> }
     </Context.Provider>
