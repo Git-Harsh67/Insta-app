@@ -16,6 +16,7 @@ const PostCard = () => {
         <img className=" w-[2vw] " src="./close.png" alt="X_logo" />
       </button>
 
+      {/* full card */}
       <div className="flex bg-gray-900 ">
         {/* post img */}
         <div className="bg-gray-950">
@@ -31,19 +32,29 @@ const PostCard = () => {
             {/* user name */}
             <div className="flex items-center py-2 px-3 outline-none text-white border-b border-gray-600">
               {/* user detail */}
-              <div className="flex items-center ">
-                <img
-                  className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
-                  src={selectedPostData.photo}
-                />
-                <div className="pl-5">
-                  <p className="font-semibold text-sm">{selectedPostData.postedBy.userName}</p>
-                  <p className="text-xs">{selectedPostData.postedBy.name}</p>
+              <div className="flex items-center justify-between w-[40vw]">
+                <div className="flex">
+                  <img
+                    className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
+                    src={selectedPostData.photo}
+                  />
+                  <div className="pl-5">
+                    <p className="font-semibold text-sm">
+                      {selectedPostData.postedBy.userName}
+                    </p>
+                    <p className="text-xs">{selectedPostData.postedBy.name}</p>
+                  </div>
+                </div>
+
+                <div>
+                    <img onClick={()=>{
+                        
+                    }} className="w-[1vw]" src="./menu.png" />
                 </div>
               </div>
             </div>
 
-            {/* user bio */}
+            {/*user bio/comment */}
             <div className="flex items-center py-2 px-3 outline-none text-white ">
               {/* user detail */}
               <div className="flex ">
