@@ -45,7 +45,7 @@ exports.myPost = async (req, res) => {
     try {
         const myPosts = await Post.find({
             postedBy: req.user
-        }).populate("postedBy", "name _id")
+        }).populate("postedBy", "name _id userName")
 
         return res.status(200).json({
             msg: "Successfully fetch all post",

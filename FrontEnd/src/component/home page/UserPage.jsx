@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import EditPage from "./EditPage";
 import { userProfile } from "../../api/user";
 import { myPost } from "../../api/post";
+import PostCard from "./PostCard";
 
 export const UserPageContext = createContext();
 
@@ -13,6 +14,8 @@ const UserPage = () => {
   const [showEditPage, setShowEditPage] = useState(false);
   const [showChangeImgCard, setShowChangeImgCard] = useState(false);
   const [userPosts, setUserPosts] = useState([]);
+  const [showPostCard, setShowPostCard] = useState(false);
+  const [selectedPostData, setSelectedPostData] = useState([]);
 
   const userDetails = async () => {
     const data = await userProfile();
@@ -39,11 +42,13 @@ const UserPage = () => {
           detail,
           userImg,
           showChangeImgCard,
+          selectedPostData, 
           setUserName,
           setShowEditPage,
           setBio,
           setShowChangeImgCard,
           setUserImg,
+          setShowPostCard 
         }}
       >
         {showEditPage === false && (
@@ -109,11 +114,16 @@ const UserPage = () => {
 
             {userPosts.length !== 0 && (
               <div className="grid grid-cols-3 gap-1 mt-1 bg-gray-950 ">
-                {userPosts.map((e) => (
-                  <div key={e._id} className=" bg-gray-900 ">
+                {userPosts.map((post) => (
+                  <div key={post._id} className=" bg-gray-900 ">
                     <img
+                      onClick={() => {
+                        setShowPostCard(true);
+                        setSelectedPostData(post)
+                        console.log(post)
+                      }}
                       className=" w-80 h-100 object-contain "
-                      src={e.photo}
+                      src={post.photo}
                     />
                   </div>
                 ))}
@@ -123,6 +133,7 @@ const UserPage = () => {
         )}
 
         {showEditPage === true && <EditPage />}
+        {showPostCard === true && <PostCard />}
       </UserPageContext.Provider>
     </>
   );

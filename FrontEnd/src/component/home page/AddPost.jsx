@@ -10,11 +10,20 @@ const Post = (props) => {
   const [description, setDescription] = useState("");
   const postDis = {
     description: description,
-    photo: mainImgUrl
+    photo: mainImgUrl,
   };
   return (
     <>
       <div className="fixed inset-0 z-50 bg-gray-900/70 ">
+        {/* back btn */}
+        <button
+          className="absolute right-4 top-4"
+          onClick={() => {
+            props.setToPost(false);
+          }}
+        >
+          <img className=" w-[2vw] " src="./close.png" alt="X_logo" />
+        </button>
         <div>
           <div className="flex flex-col items-center justify-between mt-14">
             {showImg === false && (
@@ -35,8 +44,7 @@ const Post = (props) => {
                       setShowImg(true);
 
                       const cloudinaryUrl = await uploadImage(file);
-                      setMainImgUrl(cloudinaryUrl)
-
+                      setMainImgUrl(cloudinaryUrl);
                     }}
                     className="hidden"
                     id="input"
@@ -149,15 +157,6 @@ const Post = (props) => {
               </div>
             )}
           </div>
-          {/* back btn */}
-          <button
-            className="absolute right-4 top-4"
-            onClick={() => {
-              props.setToPost(false);
-            }}
-          >
-            <img className=" w-[2vw] " src="./close.png" alt="X_logo" />
-          </button>
         </div>
       </div>
     </>

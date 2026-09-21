@@ -2,7 +2,7 @@ import Nav from "./Nav";
 import Home from "./Home";
 import UserPage from "./UserPage";
 import { useState } from "react";
-import Post from "./Post";
+import Post from "./AddPost";
 
 const InstaPage = () => {
   const[toHome, setToHome]=useState(true)

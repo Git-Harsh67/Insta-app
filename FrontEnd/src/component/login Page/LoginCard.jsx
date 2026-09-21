@@ -29,6 +29,8 @@ const LoginCard = (props) => {
             }
           } catch (error) {
             alert(error.response?.data.msg || "login failed ");
+              alert("incorrect email or password");
+
           }
         }}
         className="flex flex-col gap-6  text-gray-300"
