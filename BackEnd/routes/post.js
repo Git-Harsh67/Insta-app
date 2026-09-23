@@ -13,6 +13,5 @@ router.put("/comment/:id",verifyToken,comment)
 router.put("/delComment/:id",verifyToken,delComment)
 
 
-
 // router.get("/test",verifyToken,test)
 module.exports = router

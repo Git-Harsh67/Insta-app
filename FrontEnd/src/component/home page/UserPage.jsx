@@ -15,6 +15,7 @@ const UserPage = () => {
   const [showChangeImgCard, setShowChangeImgCard] = useState(false);
   const [userPosts, setUserPosts] = useState([]);
   const [showPostCard, setShowPostCard] = useState(false);
+  const [showChangePostCard, setShowChangePostCard] = useState(false);
   const [selectedPostData, setSelectedPostData] = useState([]);
 
   const userDetails = async () => {
@@ -42,13 +43,15 @@ const UserPage = () => {
           detail,
           userImg,
           showChangeImgCard,
-          selectedPostData, 
+          selectedPostData,
+          showChangePostCard,
           setUserName,
           setShowEditPage,
           setBio,
           setShowChangeImgCard,
           setUserImg,
-          setShowPostCard 
+          setShowPostCard,
+          setShowChangePostCard,
         }}
       >
         {showEditPage === false && (
@@ -113,14 +116,14 @@ const UserPage = () => {
             )}
 
             {userPosts.length !== 0 && (
-              <div className="grid grid-cols-3 gap-1 mt-1 bg-gray-950 ">
+              <div className="grid grid-cols-3 gap-1 mt-1 bg-gray-950 mb-3">
                 {userPosts.map((post) => (
                   <div key={post._id} className=" bg-gray-900 ">
                     <img
                       onClick={() => {
                         setShowPostCard(true);
-                        setSelectedPostData(post)
-                        console.log(post)
+                        setSelectedPostData(post);
+                        console.log(post);
                       }}
                       className=" w-80 h-100 object-contain "
                       src={post.photo}

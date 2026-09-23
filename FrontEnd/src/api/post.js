@@ -21,10 +21,19 @@ export const allPost = async () => {
     return res.data.allPosts
 }
 
-export const myPost = async () =>{
-    const res = await axios.get(`${baseURL}/myPost`,{
-        headers:{
-            Authorization : `Bearer ${localStorage.getItem("token")}`
+export const myPost = async () => {
+    const res = await axios.get(`${baseURL}/myPost`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    return res.data
+}
+
+export const delPost = async (postId) => {
+    const res = await axios.delete(`${baseURL}/delPost/${postId}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
         }
     })
     return res.data

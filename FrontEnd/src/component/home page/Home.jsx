@@ -12,10 +12,13 @@ const Home = () => {
 
   useEffect(() => {
     result();
-  });
+  },[]);
 
   return (
-    <div className="flex flex-col items-center ml-[25vw]">
+    <div
+      className={`flex flex-col items-center ml-[25vw] ${posts.length === 1 && "h-screen" }`}
+    >
+      {/* {console.log(posts.length >= 1)} */}
       {posts.length === 0 && (
         <div className="flex justify-center h-screen items-center font-bold text-white text-4xl text-center ml-[20vw]">
           <p>There are no posts yet</p>
