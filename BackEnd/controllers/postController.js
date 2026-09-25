@@ -86,9 +86,6 @@ exports.likePost = async (req, res) => {
         const postID = req.params.id
         const user = await Post.findById(postID)
 
-        // console.log(user)
-        // console.log(req.user)
-
         if (user) {
 
             const addLike = await Post.findByIdAndUpdate(postID,
@@ -96,10 +93,9 @@ exports.likePost = async (req, res) => {
                     $addToSet: {
                         likes: req.user
                     }
-
                 },
                 {
-                    new: true
+                    returnDocument: 'after'
                 }
             )
 
@@ -107,9 +103,7 @@ exports.likePost = async (req, res) => {
                 msg: "add like",
                 userPost: addLike
             })
-
         }
-
     } catch (error) {
         return res.status(400).json({
             error

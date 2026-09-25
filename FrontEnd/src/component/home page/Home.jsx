@@ -28,6 +28,7 @@ const Home = () => {
       {posts.map((e) => (
         <Cards
           key={e._id}
+          id={e._id}
           like={e.likes.length}
           postImg={e.photo}
           description={e.description}

@@ -38,3 +38,21 @@ export const delPost = async (postId) => {
     })
     return res.data
 }
+
+export const like = async (postId) => {
+    const res = await axios.put(`${baseURL}/likePost/${postId}`,{}, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    return res.data
+}
+
+export const unlike = async (postId) => {
+    const res = await axios.put(`${baseURL}/unLikePost/${postId}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    return res.data
+}
