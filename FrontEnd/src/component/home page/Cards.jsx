@@ -1,17 +1,32 @@
-import React, { useState } from "react";  
-import { like } from "../../api/post";
-  
-const Cards = (props) => {
-const [likedImg , SetLikedImg]= useState(false)
+import React, { useEffect, useState } from "react";
+import { like, unlike } from "../../api/post";
+import { userProfile } from "../../api/user";
 
-const likePost = () =>{
-// console.log("token :"+ localStorage.getItem("token")  )
-  const res = like(props.id)
-  return res
-}
+const Cards = (props) => {
+  const [userId, setUserId] = useState("");
+
+
+  const likePost = async() => {
+    const res = await like(props.id);
+    return res;
+  };
+  const unLikePost = async() => {
+    const res = await unlike(props.id);
+    return res;
+  };
+
+  const user = async() => {
+    const data = await userProfile();
+    setUserId(data.user._id);
+  };
+
+
+  useEffect(() => {
+    (user());
+  }, []);
+
   return (
     <div className="w-[40vw] rounded-md border-gray-500 text-white bg-gray-900 mt-6 mb-6 overflow-hidden">
-
       <div className="flex items-center justify-between py-2 px-4">
         <div className="flex items-center gap-x-3">
           <button>
@@ -38,26 +53,29 @@ const likePost = () =>{
 
       <div className="flex gap-x-4 ml-4 my-2">
         <div className="flex gap-x-3">
-          <button onClick={()=>{
-            likePost()
-            SetLikedImg(true)
-          }}>
-            <img
-              className="w-7 h-7"
-              src= {likedImg === false ? "./heart_logo.png" : "./redHeart.png" }
-              alt="like logo"
-            />
-          </button>
+          {props.likes.includes(userId) === true ? (
+            <button
+              onClick={() => {
+                unLikePost();
+              }}
+            >
+              <img className="w-7 h-7" src="./redHeart.png " alt="like logo" />
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                likePost();
+              }}
+            >
+              <img className="w-7 h-7" src="./heart_logo.png" alt="unlike logo" />
+            </button>
+          )}
 
-          <p>{props.like}</p>
+          <p>{props.likes.length}</p>
         </div>
 
         <button>
-          <img
-            className="w-7 h-7"
-            src="./chat_logo.png"
-            alt="chat logo"
-          />
+          <img className="w-7 h-7" src="./chat_logo.png" alt="chat logo" />
         </button>
       </div>
 

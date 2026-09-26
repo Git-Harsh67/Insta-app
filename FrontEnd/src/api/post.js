@@ -49,7 +49,7 @@ export const like = async (postId) => {
 }
 
 export const unlike = async (postId) => {
-    const res = await axios.put(`${baseURL}/unLikePost/${postId}`, {
+    const res = await axios.put(`${baseURL}/unLikePost/${postId}`,{}, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
         }
