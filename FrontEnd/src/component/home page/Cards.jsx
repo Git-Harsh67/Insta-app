@@ -1,28 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { like, unlike } from "../../api/post";
 import { userProfile } from "../../api/user";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Cards = (props) => {
   const [userId, setUserId] = useState("");
+  const queryClient = useQueryClient();
 
+  const likePost = useMutation({
+    mutationKey: ["like post"],
+    mutationFn(id) {
+      const res = like(id);
+      return res;
+    },
+    onMutate(){
+      queryClient.setQueryData(["posts"],(posts)=>{
+      return posts.map((post)=>{
+        if(post._id === props.id){
+          return{
+            ...post,
+            likes : [...post.likes , userId]
+          }}
+        return post
+      })
+      })
+    }
+  });
+  const unLikePost = useMutation({
+    mutationKey: ["unlike post"],
+    mutationFn(id) {
+      const res = unlike(id);
+      return res;
+    },
+    onMutate(){
+      queryClient.setQueryData(["posts"],(posts)=>{
+      return posts.map((post)=>{
+        if(post._id === props.id){
+          return{
+            ...post,
+            likes : post.likes.filter((id)=> id !== userId)
+          }}
+        return post
+      })
+      })
+    }
+  });
 
-  const likePost = async() => {
-    const res = await like(props.id);
-    return res;
-  };
-  const unLikePost = async() => {
-    const res = await unlike(props.id);
-    return res;
-  };
-
-  const user = async() => {
+  const user = async () => {
     const data = await userProfile();
     setUserId(data.user._id);
   };
 
-
   useEffect(() => {
-    (user());
+    user();
   }, []);
 
   return (
@@ -56,7 +86,7 @@ const Cards = (props) => {
           {props.likes.includes(userId) === true ? (
             <button
               onClick={() => {
-                unLikePost();
+                unLikePost.mutate(props.id);
               }}
             >
               <img className="w-7 h-7" src="./redHeart.png " alt="like logo" />
@@ -64,10 +94,14 @@ const Cards = (props) => {
           ) : (
             <button
               onClick={() => {
-                likePost();
+                likePost.mutate(props.id);
               }}
             >
-              <img className="w-7 h-7" src="./heart_logo.png" alt="unlike logo" />
+              <img
+                className="w-7 h-7"
+                src="./heart_logo.png"
+                alt="unlike logo"
+              />
             </button>
           )}
 

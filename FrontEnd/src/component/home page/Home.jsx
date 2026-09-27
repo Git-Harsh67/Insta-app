@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { allPost } from "../../api/post";
 import Cards from "./Cards";
-import { Query, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const Home = () => {
-  async function result() {}
 
   const queryPost = useQuery({
     queryKey: ["posts"],
@@ -34,7 +33,7 @@ const Home = () => {
               <p>There are no posts yet</p>
             </div>
           )}
-          {/* {console.log(posts)} */}
+
           {posts.map((e) => (
             <Cards
               key={e._id}
