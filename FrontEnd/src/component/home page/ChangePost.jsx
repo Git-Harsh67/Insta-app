@@ -1,10 +1,6 @@
-import { useContext, useEffect } from "react";
 import { delPost } from "../../api/post";
-import { UserPageContext } from "./UserPage";
 
-const ChangePost = (setShowChangePostCard, selectedPostData,setShowPostCard ) => {
-  // const { } =
-  //   useContext(UserPageContext);
+const ChangePost = ({setShowChangePostCard, selectedPostData,setShowPostCard}) => {
 
   const del = async () => {
     const res = await delPost(selectedPostData._id);

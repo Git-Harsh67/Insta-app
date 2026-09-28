@@ -134,7 +134,14 @@ const UserPage = () => {
         )}
 
         {showEditPage === true && <EditPage />}
-        {showPostCard === true && <PostCard />}
+        {showPostCard === true && (
+          <PostCard
+            selectedPostData={selectedPostData}
+            setShowPostCard={setShowPostCard}
+            showChangePostCard={showChangePostCard}
+            setShowChangePostCard={setShowChangePostCard}
+          />
+        )}
       </UserPageContext.Provider>
     </>
   );

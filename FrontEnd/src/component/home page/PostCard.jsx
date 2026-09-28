@@ -1,5 +1,3 @@
-import { useContext, useEffect } from "react";
-import { UserPageContext } from "./UserPage";
 import ChangePost from "./ChangePost";
 
 const PostCard = ({
@@ -8,8 +6,6 @@ const PostCard = ({
   showChangePostCard,
   setShowChangePostCard,
 }) => {
-  // const {} = useContext(UserPageContext);
-
   return (
     <div className="flex fixed inset-0 z-50 bg-gray-900/70 justify-center items-center">
       {/* back btn */}
@@ -118,7 +114,13 @@ const PostCard = ({
           </div>
         </div>
       </div>
-      {showChangePostCard === true && <ChangePost />}
+      {showChangePostCard === true && (
+        <ChangePost
+          setShowChangePostCard={setShowChangePostCard}
+          selectedPostData={selectedPostData}
+          setShowPostCard={setShowPostCard}
+        />
+      )}
     </div>
   );
 };

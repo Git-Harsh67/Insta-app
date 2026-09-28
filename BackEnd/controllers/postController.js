@@ -28,7 +28,7 @@ exports.createPost = async (req, res) => {
 
 exports.allPost = async (req, res) => {
     try {
-        const allPosts = await Post.find().populate("postedBy", "name _id")
+        const allPosts = await Post.find().populate("postedBy", "name _id userName")
 
         return res.status(200).json({
             msg: "=Successfully fetch all post",
@@ -84,7 +84,7 @@ exports.delPost = async (req, res) => {
 exports.likePost = async (req, res) => {
     try {
         const postID = req.params.id
-        const user = await Post.findById(postID)
+        const user = await Post.findById(postID).populate("postedBy", "name _id userName")
 
         if (user) {
 
@@ -114,7 +114,7 @@ exports.likePost = async (req, res) => {
 exports.unLikePost = async (req, res) => {
     try {
         const postID = req.params.id
-        const user = await Post.findById(postID).populate("postedBy", "name _id")
+        const user = await Post.findById(postID).populate("postedBy", "name _id userName")
 
         // console.log(user)
         // console.log(req.user)
@@ -150,7 +150,7 @@ exports.unLikePost = async (req, res) => {
 exports.comment = async (req, res) => {
     try {
         const PostID = req.params.id
-        const user = await Post.findById(PostID)
+        const user = await Post.findById(PostID).populate("postedBy", "name _id userName")
 
         if (user) {
             const addComment = await Post.findByIdAndUpdate(PostID,
