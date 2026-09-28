@@ -11,14 +11,13 @@ const Home = () => {
       return allPost();
     },
   });
-
-  const posts = queryPost.data || [];
+  const posts = queryPost?.data || [];
 
   return (
     <>
       {queryPost.isLoading && (
         <div className="flex flex-col items-center ml-[25vw] h-screen">
-          <div className="flex justify-center h-screen font-bold text-white text-2xl text-center ml-[20vw]">
+          <div className="flex justify-center items-center h-screen font-bold text-white text-2xl text-center ml-[20vw]">
             <p>fetching the data ...</p>
           </div>
         </div>
@@ -27,7 +26,6 @@ const Home = () => {
         <div
           className={`flex flex-col items-center ml-[25vw] ${posts.length === 1 && "h-screen"}`}
         >
-          {/* {console.log(posts.length >= 1)} */}
           {posts.length === 0 && (
             <div className="flex justify-center h-screen items-center font-bold text-white text-4xl text-center ml-[20vw]">
               <p>There are no posts yet</p>

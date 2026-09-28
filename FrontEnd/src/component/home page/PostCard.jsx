@@ -2,13 +2,13 @@ import { useContext, useEffect } from "react";
 import { UserPageContext } from "./UserPage";
 import ChangePost from "./ChangePost";
 
-const PostCard = () => {
-  const {
-    selectedPostData,
-    setShowPostCard,
-    showChangePostCard,
-    setShowChangePostCard,
-  } = useContext(UserPageContext);
+const PostCard = ({
+  selectedPostData,
+  setShowPostCard,
+  showChangePostCard,
+  setShowChangePostCard,
+}) => {
+  // const {} = useContext(UserPageContext);
 
   return (
     <div className="flex fixed inset-0 z-50 bg-gray-900/70 justify-center items-center">
@@ -55,7 +55,7 @@ const PostCard = () => {
                 <div>
                   <img
                     onClick={() => {
-                      setShowChangePostCard(true)
+                      setShowChangePostCard(true);
                     }}
                     className="w-[1vw]"
                     src="./menu.png"

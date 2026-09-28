@@ -18,19 +18,17 @@ const LoginCard = (props) => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          const data = await login(userInfo);
-          {console.log(data)}
-          {console.log(data.token)}
           try {
+            const data = await login(userInfo);
             if (data && data.token) {
               localStorage.setItem("token", data.token);
               setToken(data.token);
               alert("welcome");
+            }else{
+            alert("incorrect email or password");
             }
           } catch (error) {
             alert(error.response?.data.msg || "login failed ");
-              alert("incorrect email or password");
-
           }
         }}
         className="flex flex-col gap-6  text-gray-300"
