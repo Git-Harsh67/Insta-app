@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { allPost } from "../../api/post";
 import Cards from "./Cards";
 import { useQuery } from "@tanstack/react-query";

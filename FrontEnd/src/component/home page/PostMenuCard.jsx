@@ -1,5 +1,5 @@
 
-const PostMenu = ({setShowChangePostCard, selectedPostData,setShowPostCard}) => {
+const PostMenu = ({setShowPostMenuCard, selectedPostData,setShowPostCard}) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-gray-900/70 ">
@@ -18,7 +18,7 @@ const PostMenu = ({setShowChangePostCard, selectedPostData,setShowPostCard}) => 
           <div>
             <button
               onClick={async () => {
-                setShowChangePostCard(false);
+                setShowPostMenuCard(false);
                 setShowPostCard(false)
               }}
               className="border border-b-0 border-gray-600 bg-gray-950 text-red-500 w-[28vw] text-center py-3 text-lg hover:bg-gray-900"
@@ -31,7 +31,7 @@ const PostMenu = ({setShowChangePostCard, selectedPostData,setShowPostCard}) => 
           <div>
             <button
               onClick={() => {
-                setShowChangePostCard(false);
+                setShowPostMenuCard(false);
               }}
               className="border rounded-b-2xl border-gray-600 bg-gray-950 text-white w-[28vw] text-center py-3 text-lg hover:bg-gray-900"
             >

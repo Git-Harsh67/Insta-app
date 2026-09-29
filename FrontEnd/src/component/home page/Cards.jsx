@@ -30,7 +30,7 @@ const Cards = ({ userDetail }) => {
     onMutate() {
       queryClient.setQueryData(["posts"], (posts) => {
         return posts.map((post) => {
-          if (post._id === props.id) {
+          if (post._id === userDetail._id) {
             return {
               ...post,
               likes: [...post.likes, user._id],
@@ -51,7 +51,7 @@ const Cards = ({ userDetail }) => {
     onMutate() {
       queryClient.setQueryData(["posts"], (posts) => {
         return posts.map((post) => {
-          if (post._id === props.id) {
+          if (post._id === userDetail._id) {
             return {
               ...post,
               likes: post.likes.filter((id) => id !== user._id),
@@ -61,6 +61,8 @@ const Cards = ({ userDetail }) => {
         });
       });
     },
+    onError :( error)=> alert( `Error : ${error.message}`)
+    
   });
 
   return (
@@ -111,7 +113,7 @@ const Cards = ({ userDetail }) => {
       <div className="flex gap-x-4 ml-4 my-2">
         {/* like */}
         <div className="flex items-center gap-x-3">
-          {userDetail.likes?.includes(user._id) === true ? (
+          {userDetail.likes.includes(user._id) === true ? (
             <button
               onClick={() => {
                 unLikePost.mutate(userDetail._id);

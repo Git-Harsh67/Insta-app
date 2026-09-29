@@ -1,4 +1,5 @@
 import ChangePost from "./PostDeleteCard";
+import PostMenu from "./PostMenuCard";
 
 const PostCard = ({
   selectedPostData,
@@ -53,7 +54,11 @@ const PostCard = ({
                 <div>
                   <img
                     onClick={() => {
-                      setShowChangePostCard(true)||setShowPostMenuCard(true)
+                      if(setShowChangePostCard){
+                        setShowChangePostCard(true)
+                      }else{
+                        setShowPostMenuCard(true)
+                      }
                     }}
                     className="w-[1vw]"
                     src="./menu.png"
@@ -119,14 +124,14 @@ const PostCard = ({
       {showChangePostCard === true && (
         <ChangePost
           setShowChangePostCard={setShowChangePostCard}
-          // selectedPostData={selectedPostData}
+          selectedPostData={selectedPostData}
           setShowPostCard={setShowPostCard}
         />
       )}
       {showPostMenuCard === true && (
-        <ChangePost
+        <PostMenu
           setShowPostMenuCard={setShowPostMenuCard}
-          // selectedPostData={selectedPostData}
+          selectedPostData={selectedPostData}
           setShowPostCard={setShowPostCard}
         />
       )}
