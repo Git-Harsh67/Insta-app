@@ -32,6 +32,7 @@ const UserPage = () => {
   const [showChangeImgCard, setShowChangeImgCard] = useState(false);
   const [showPostCard, setShowPostCard] = useState(false);
   const [showChangePostCard, setShowChangePostCard] = useState(false);
+
   const [selectedPostData, setSelectedPostData] = useState([]);
 
   return (

@@ -1,10 +1,12 @@
-import ChangePost from "./ChangePost";
+import ChangePost from "./PostDeleteCard";
 
 const PostCard = ({
   selectedPostData,
   setShowPostCard,
   showChangePostCard,
   setShowChangePostCard,
+  showPostMenuCard,
+  setShowPostMenuCard,
 }) => {
   return (
     <div className="flex fixed inset-0 z-50 bg-gray-900/70 justify-center items-center">
@@ -51,7 +53,7 @@ const PostCard = ({
                 <div>
                   <img
                     onClick={() => {
-                      setShowChangePostCard(true);
+                      setShowChangePostCard(true)||setShowPostMenuCard(true)
                     }}
                     className="w-[1vw]"
                     src="./menu.png"
@@ -117,7 +119,14 @@ const PostCard = ({
       {showChangePostCard === true && (
         <ChangePost
           setShowChangePostCard={setShowChangePostCard}
-          selectedPostData={selectedPostData}
+          // selectedPostData={selectedPostData}
+          setShowPostCard={setShowPostCard}
+        />
+      )}
+      {showPostMenuCard === true && (
+        <ChangePost
+          setShowPostMenuCard={setShowPostMenuCard}
+          // selectedPostData={selectedPostData}
           setShowPostCard={setShowPostCard}
         />
       )}

@@ -8,7 +8,7 @@ const Cards = ({ userDetail }) => {
   const [follow, setFollow] = useState(false);
   const [showPostCard, setShowPostCard] = useState(false);
   const [selectedPostData, setSelectedPostData] = useState([]);
-  const [showChangePostCard, setShowChangePostCard] = useState(false);
+  const [showPostMenuCard, setShowPostMenuCard] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -155,8 +155,8 @@ const Cards = ({ userDetail }) => {
         <PostCard
           selectedPostData={selectedPostData}
           setShowPostCard={setShowPostCard}
-          showChangePostCard={showChangePostCard}
-          setShowChangePostCard={setShowChangePostCard}
+          showPostMenuCard={showPostMenuCard}
+          setShowPostMenuCard={setShowPostMenuCard}
         />
       )}
     </div>
