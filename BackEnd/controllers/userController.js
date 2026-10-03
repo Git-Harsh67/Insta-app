@@ -27,11 +27,11 @@ exports.editProfile = async (req, res) => {
 
         const updateValue = {}
 
-         if (userName !== undefined) updateValue.userName = userName
-         if (pic !== undefined) updateValue.pic = pic
-         if (bio !== undefined) updateValue.bio = bio
+        if (userName !== undefined) updateValue.userName = userName
+        if (pic !== undefined) updateValue.pic = pic
+        if (bio !== undefined) updateValue.bio = bio
 
-        const user = await User.findByIdAndUpdate(req.user,updateValue,
+        const user = await User.findByIdAndUpdate(req.user, updateValue,
             {
                 returnDocument: 'after'
             }
@@ -51,67 +51,70 @@ exports.editProfile = async (req, res) => {
 
 exports.follow = async (req, res) => {
     try {
-        const userToFollow = req.body.followID
-        // console.log(userToFollow)
-        // console.log(req.user)
+        const userToFollow = req.params.id
 
         if (userToFollow !== req.user) {
-
-            const follower = await User.findByIdAndUpdate(userToFollow, {
-                $addToSet: {
-                    followers: req.user
-                }
-            }, { new: true })
-
-            const following = await User.findByIdAndUpdate(req.user, {
-                $addToSet: { following: userToFollow }
-            },
-                { new: true })
-
+            return res.status(400).json({
+                msg: "You can't follow yourself"
+            })
         }
+        const follower = await User.findByIdAndUpdate(userToFollow, {
+            $addToSet: {
+                followers: req.user
+            }
+        }, { returnDocument: 'after' })
 
+        const following = await User.findByIdAndUpdate(req.user, {
+            $addToSet: { following: userToFollow }
+        },
+            { returnDocument: 'after' })
 
         return res.status(201).json({
             msg: "You have followed successfully",
             follower,
             following
         })
+
+
+
     } catch (error) {
         return res.status(400).json({
             msg: "can't follow",
-            error
+            error: error.message
         })
     }
 }
 
 exports.unfollow = async (req, res) => {
     try {
-        const userToFollow = req.body.followID
-        // console.log(userToFollow )
-        // console.log("69d4c36797228781af600d76" !== userToFollow )
-        if (userToFollow !== req.user) {
+        const userToFollow = req.params.id
 
-            const follower = await User.findByIdAndUpdate(userToFollow, {
-                $pull: {
-                    followers: req.user
-                }
-            }, { returnDocument: "after" })
-
-            const following = await User.findByIdAndUpdate(req.user, {
-                $pull: { following: userToFollow }
-            }, { returnDocument: "after" })
-
+        if (userToFollow === req.user) {
+            return res.status(400).json({
+                msg: "You cannot unfollow yourself",
+            });
         }
+
+        const follower = await User.findByIdAndUpdate(userToFollow, {
+            $pull: {
+                followers: req.user
+            }
+        }, { returnDocument: "after" })
+
+        const following = await User.findByIdAndUpdate(req.user, {
+            $pull: { following: userToFollow }
+        }, { returnDocument: "after" })
 
         return res.status(201).json({
             msg: "You have unfollowed successfully",
             follower,
             following
         })
+
     } catch (error) {
         return res.status(400).json({
             msg: "can't unfollow",
-            error
+            error: error.message
         })
     }
 }

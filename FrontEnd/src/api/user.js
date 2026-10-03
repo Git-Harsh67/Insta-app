@@ -18,3 +18,21 @@ export const editProfile = async (changes) => {
     })
     return res.data
 }
+
+export const follow = async (userId) => {
+    const res = await axios.put(`${baseURL}/follow/${userId}`,{}, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    return res.data
+}
+
+export const unFollow = async (userId) => {
+    const res = await axios.put(`${baseURL}/unfollow/${userId}`,{}, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    return res.data
+}

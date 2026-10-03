@@ -31,7 +31,7 @@ const Home = () => {
           )}
 
           {posts?.map((e) => (
-            <Cards key={e._id} userDetail={e} />
+            <Cards key={e._id} postDetail={e} />
           ))}
         </div>
       )}
