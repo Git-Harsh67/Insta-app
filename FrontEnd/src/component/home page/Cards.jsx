@@ -71,6 +71,7 @@ const Cards = ({ postDetail }) => {
     },
     onSuccess() {
       return setIsFollow(true);
+      
     },
     onError(error) {
       return error.message;

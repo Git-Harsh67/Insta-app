@@ -22,7 +22,7 @@ const UserPage = () => {
     },
   });
 
-  const detail = userQuery.data?.user || [];
+  const detail = userQuery.data || [];
   const userPosts = myPostsQuery.data?.myPosts || [];
 
   const [userImg, setUserImg] = useState("");
@@ -64,27 +64,27 @@ const UserPage = () => {
               <div>
                 <img
                   className="w-30 h-30 border-none rounded-full object-cover"
-                  src={detail?.pic || `./user_logo.png`}
+                  src={detail?.user?.pic || `./user_logo.png`}
                 />
               </div>
               <div className="flex flex-col gap-y-2 text-white ">
-                <p className="font-bold text-3xl">{detail?.userName}</p>
-                <p>{detail?.name}</p>
+                <p className="font-bold text-3xl">{detail?.user?.userName}</p>
+                <p>{detail?.user?.name}</p>
 
                 <div className="flex gap-x-4 ">
                   <p>
-                    <strong>1</strong> post
+                    <strong>{detail?.posts?.length }</strong> post
                   </p>
                   <p>
-                    <strong>1</strong> follower
+                    <strong>{detail?.user?.followers?.length }</strong> follower
                   </p>
                   <p>
-                    <strong>1</strong> following
+                    <strong>{detail?.user?.following?.length }</strong> following
                   </p>
                 </div>
 
                 <p className="max-w-md max-h-[15vh] overflow-hidden">
-                  {detail?.bio}
+                  {detail?.user?.bio}
                 </p>
               </div>
             </div>

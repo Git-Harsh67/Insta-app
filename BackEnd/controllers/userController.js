@@ -51,9 +51,9 @@ exports.editProfile = async (req, res) => {
 
 exports.follow = async (req, res) => {
     try {
-        const userToFollow = req.params.id
+        const userToFollow = req.params.id 
 
-        if (userToFollow !== req.user) {
+        if (userToFollow === req.user) {
             return res.status(400).json({
                 msg: "You can't follow yourself"
             })
