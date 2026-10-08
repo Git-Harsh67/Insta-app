@@ -96,6 +96,8 @@ const Cards = ({ postDetail }) => {
 
   const user = userPro.data?.user || [];
 
+  // console.log()
+  // console.log(postDetail)
   return (
     <div className="w-[40vw] rounded-md border-gray-500 text-white bg-gray-900 mt-6 mb-6 overflow-hidden">
       <div className="flex items-center justify-between py-2 px-4">
@@ -108,12 +110,10 @@ const Cards = ({ postDetail }) => {
             />
           </button>
           <p>{postDetail.postedBy.userName}</p>
-          <p>followers {user?.followers?.length || "0"}</p>
-          <p>following {user?.following?.length || "0"}</p>
 
           {/* follow / unFollow */}
         </div>
-        {isFollow === true && (
+        {user?.following?.includes(postDetail.postedBy._id) === true && (
           <button
             onClick={() => {
               handleUnFollow.mutate(postDetail.postedBy._id);
@@ -123,7 +123,7 @@ const Cards = ({ postDetail }) => {
             Following
           </button>
         )}
-        {isFollow === false && (
+        {user?.following?.includes(postDetail.postedBy._id) === false && (
           <button
             onClick={() => {
               handleFollow.mutate(postDetail.postedBy._id);
