@@ -19,8 +19,6 @@ const Cards = ({ postDetail }) => {
     },
   });
 
-  const user = userPro.data?.user || [];
-
   const likePost = useMutation({
     mutationKey: ["like post"],
     mutationFn(id) {
@@ -65,13 +63,12 @@ const Cards = ({ postDetail }) => {
   });
 
   const handleFollow = useMutation({
-    mutationFn: async (id) => {
+    mutationFn: async (id)=>{
       const res = await follow(id);
       return res;
     },
     onSuccess() {
       return setIsFollow(true);
-      
     },
     onError(error) {
       return error.message;
@@ -79,7 +76,7 @@ const Cards = ({ postDetail }) => {
   });
 
   const handleUnFollow = useMutation({
-    mutationFn: async (id) => {
+    mutationFn: async(id)=>{
       const res = await unFollow(id);
       return res;
     },
@@ -90,6 +87,14 @@ const Cards = ({ postDetail }) => {
       return error.message;
     },
   });
+
+  const addComment = useMutation({
+  mutationFn(){
+
+  }
+  })
+
+  const user = userPro.data?.user || [];
 
   return (
     <div className="w-[40vw] rounded-md border-gray-500 text-white bg-gray-900 mt-6 mb-6 overflow-hidden">

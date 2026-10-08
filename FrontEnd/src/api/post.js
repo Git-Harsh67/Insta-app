@@ -57,3 +57,20 @@ export const unlike = async (postId) => {
     return res.data
 }
 
+export const comment = async (postId) => {
+    const res = await axios.put(`${baseURL}/comment/${postId}`,{}, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    return res.data
+}
+
+export const delComment = async (postId) => {
+    const res = await axios.put(`${baseURL}/delComment/${postId}`,{}, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    return res.data
+}
