@@ -9,6 +9,7 @@ exports.createPost = async (req, res) => {
                 msg: "All field required "
             })
         }
+        
         const post = await Post.create({
             description,
             postedBy: req.user,

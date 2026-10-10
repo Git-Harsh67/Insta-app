@@ -7,9 +7,9 @@ const EditPage = () => {
   const { setShowEditPage, setShowChangeImgCard, showChangeImgCard, detail } =
     useContext(UserPageContext);
 
-  const [editUserName, setEditUserName] = useState(detail.userName);
-  const [editUserImg, setEditUserImg] = useState(detail.pic);
-  const [editBio, setEditBio] = useState(detail.bio);
+  const [editUserName, setEditUserName] = useState(detail?.userName);
+  const [editUserImg, setEditUserImg] = useState(detail?.pic);
+  const [editBio, setEditBio] = useState(detail?.bio);
 
   const changes = {
     pic: editUserImg,
@@ -60,7 +60,7 @@ const EditPage = () => {
               />
               <div>
                 <p className="font-semibold text-xl">{editUserName}</p>
-                <p>{detail.name}</p>
+                <p>{detail?.name}</p>
               </div>
             </div>
 

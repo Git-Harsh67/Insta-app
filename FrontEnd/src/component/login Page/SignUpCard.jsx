@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { signUp } from "../../api/auth";
 
 const SignUpCard = (props) => {
@@ -16,17 +16,16 @@ const SignUpCard = (props) => {
   return (
     <div className="flex flex-col bg-gray-900 border-l-2 border-l-gray-600 w-[45vw] text-white pl-12">
       <form
-        onSubmit={ (e) => {
-          {console.log(signUp(userInfo))}
+        onSubmit={async(e) => {
           try {
             e.preventDefault();
-            signUp(userInfo);
-            alert("signUp completed");
+            await signUp(userInfo);
             props.setToSignCard(false);
             props.setToLogCard(true);
             setName("");
             setEmail("");
             setPassword("");
+            alert("signUp completed");
           } catch (error) {
             console.log("Status:", error.response?.status);
             alert(error.response?.data.msg);
@@ -38,7 +37,7 @@ const SignUpCard = (props) => {
         <div>
           <button
             className="mt-5 "
-            onClick={(e) => {
+            onClick={() => {
               props.setToSignCard(false);
               props.setToLogCard(true);
             }}
@@ -56,11 +55,7 @@ const SignUpCard = (props) => {
         <div>
           <p className="pb-1">Name</p>
           <input
-            onChange={(e) => {
-              setTimeout(() => {
-                setName(e.target.value);
-              }, 600);
-            }}
+            onChange={(e) => setName(e.target.value)}
             className="border rounded-lg py-2 px-4 w-[35vw] outline-none"
             type="text"
             placeholder="your name"
@@ -71,11 +66,7 @@ const SignUpCard = (props) => {
         <div>
           <p className="pb-1">User Name</p>
           <input
-            onChange={(e) => {
-              setTimeout(() => {
-                setUserName(e.target.value);
-              }, 600);
-            }}
+            onChange={(e) => setUserName(e.target.value)}
             className="border rounded-lg py-2 px-4 w-[35vw] outline-none"
             type="text"
             placeholder="your user name"
@@ -86,34 +77,28 @@ const SignUpCard = (props) => {
         <div>
           <p className="pb-1">Email</p>
           <input
-            onChange={(e) => {
-              setTimeout(() => {
-                setEmail(e.target.value);
-              }, 600);
-            }}
+            onChange={(e) => setEmail(e.target.value)}
             className="border rounded-lg py-2 px-4 w-[35vw] outline-none"
             type="text"
             placeholder="your email"
             id=""
           />
         </div>
-         {/* password */}
+        {/* password */}
         <div>
           <p className="pb-1">Set password</p>
           <input
-            onChange={(e) => {
-              setTimeout(() => {
-                setPassword(e.target.value);
-              }, 600);
-            }}
+            onChange={(e) => setPassword(e.target.value)}
             className="border rounded-lg py-2 px-4 w-[35vw] outline-none"
             type="text"
             placeholder="your password"
-            id=""
           />
         </div>
 
-        <button className=" bg-green-700 rounded-4xl outline-none py-2 px-4 w-[35vw] mt-5">
+        <button
+          type="submit"
+          className=" bg-green-700 rounded-4xl outline-none py-2 px-4 w-[35vw] mt-5"
+        >
           Submit
         </button>
       </form>

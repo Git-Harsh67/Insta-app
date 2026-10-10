@@ -109,24 +109,24 @@ const Cards = ({ postDetail }) => {
               alt="profile pic"
             />
           </button>
-          <p>{postDetail.postedBy.userName}</p>
+          <p>{postDetail?.postedBy?.userName}</p>
 
           {/* follow / unFollow */}
         </div>
-        {user?.following?.includes(postDetail.postedBy._id) === true && (
+        {user?.following?.includes(postDetail?.postedBy?._id) === true && (
           <button
             onClick={() => {
-              handleUnFollow.mutate(postDetail.postedBy._id);
+              handleUnFollow.mutate(postDetail?.postedBy?._id);
             }}
             className="rounded-md bg-gray-600 px-2 font-extralight"
           >
             Following
           </button>
         )}
-        {user?.following?.includes(postDetail.postedBy._id) === false && (
+        {user?.following?.includes(postDetail?.postedBy?._id) === false && (
           <button
             onClick={() => {
-              handleFollow.mutate(postDetail.postedBy._id);
+              handleFollow.mutate(postDetail?.postedBy?._id);
             }}
             className="rounded-md bg-gray-600 px-2 font-extralight"
           >
@@ -140,7 +140,7 @@ const Cards = ({ postDetail }) => {
           console.log(postDetail);
         }}
         className=" w-full max-h-[90vh] object-contain bg-black"
-        src={postDetail.photo}
+        src={postDetail?.photo}
         alt="post pic"
       />
 
@@ -148,7 +148,7 @@ const Cards = ({ postDetail }) => {
       <div className="flex gap-x-4 ml-4 my-2">
         {/* like */}
         <div className="flex items-center gap-x-3">
-          {postDetail.likes.includes(user?._id) === true ? (
+          {postDetail?.likes.includes(user?._id) === true ? (
             <button
               onClick={() => {
                 unLikePost.mutate(postDetail._id);
@@ -159,7 +159,7 @@ const Cards = ({ postDetail }) => {
           ) : (
             <button
               onClick={() => {
-                likePost.mutate(postDetail._id);
+                likePost.mutate(postDetail?._id);
               }}
             >
               <img
@@ -169,7 +169,7 @@ const Cards = ({ postDetail }) => {
               />
             </button>
           )}
-          <p>{postDetail.likes.length}</p>
+          <p>{postDetail?.likes?.length}</p>
         </div>
         {/* comment */}
         <div
@@ -186,7 +186,7 @@ const Cards = ({ postDetail }) => {
         </div>
       </div>
 
-      <p className="ml-4 my-2">{postDetail.description}</p>
+      <p className="ml-4 my-2">{postDetail?.description}</p>
 
       {showPostCard === true && (
         <PostCard

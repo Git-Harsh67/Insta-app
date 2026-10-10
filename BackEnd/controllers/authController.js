@@ -4,42 +4,49 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
 exports.signUp = async (req, res) => {
-  const { name, email, password, pic, userName, bio } = req.body;
+  try {
+    const { name, email, password, pic, userName, bio } = req.body;
 
-  if (!userName || !name || !email || !password) {
-    res.status(422).json({
-      msg: "all field required",
-    });
-  }
+    if (!userName || !name || !email || !password) {
+      return res.status(422).json({
+        msg: "all field required",
+      });
+    }
 
-  const userExist = await User.findOne({
-    $or: [
-      { email },
-      { userName }
-    ]
-  });
-
-  if (userExist) {
-    res.status(400).json({
-      msg: "this email or your user name already exist",
-    });
-  } else {
-    const securePassword = await bcrypt.hash(password, 10);
-    // console.log(securePassword)
-
-    const user = new User({
-      name,
-      email,
-      password: securePassword,
-      pic,
-      bio,
-      userName
+    const userExist = await User.findOne({
+      $or: [
+        { email },
+        { userName }
+      ]
     });
 
-    user.save();
+    if (userExist) {
+      return res.status(400).json({
+        msg: "this email or your user name already exist",
+      });
+    } else {
+      const securePassword = await bcrypt.hash(password, 10);
 
-    res.status(200).json({
-      user,
+      const user = new User({
+        name,
+        email,
+        password: securePassword,
+        pic,
+        bio,
+        userName
+      });
+
+     await user.save();
+
+      return res.status(200).json({
+        user,
+      });
+    }
+
+
+  } catch (error) {
+    return res.status(400).json({
+      message: error.message
     });
   }
 };
