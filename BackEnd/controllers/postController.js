@@ -29,7 +29,7 @@ exports.createPost = async (req, res) => {
 
 exports.allPost = async (req, res) => {
     try {
-        const allPosts = await Post.find().populate("postedBy", "name _id userName")
+        const allPosts = await Post.find().populate("postedBy", "name _id userName pic")
 
         return res.status(200).json({
             msg: "=Successfully fetch all post",
@@ -46,7 +46,7 @@ exports.myPost = async (req, res) => {
     try {
         const myPosts = await Post.find({
             postedBy: req.user
-        }).populate("postedBy", "name _id userName")
+        }).populate("postedBy", "name _id userName pic")
 
         return res.status(200).json({
             msg: "Successfully fetch all post",
@@ -63,8 +63,6 @@ exports.delPost = async (req, res) => {
     try {
         const ID = req.params.id
         const myPosts = await Post.findById(ID)
-
-        // console.log(myPosts.postedBy.toString() === req.user)
 
         if (myPosts.postedBy.toString() === req.user) {
             const del = await Post.findByIdAndDelete(ID)
@@ -85,7 +83,7 @@ exports.delPost = async (req, res) => {
 exports.likePost = async (req, res) => {
     try {
         const postID = req.params.id
-        const user = await Post.findById(postID).populate("postedBy", "name _id userName")
+        const user = await Post.findById(postID).populate("postedBy", "name _id userName pic")
 
         if (user) {
 
@@ -115,7 +113,7 @@ exports.likePost = async (req, res) => {
 exports.unLikePost = async (req, res) => {
     try {
         const postID = req.params.id
-        const user = await Post.findById(postID).populate("postedBy", "name _id userName")
+        const user = await Post.findById(postID).populate("postedBy", "name _id userName pic")
 
         // console.log(user)
         // console.log(req.user)
@@ -151,7 +149,7 @@ exports.unLikePost = async (req, res) => {
 exports.comment = async (req, res) => {
     try {
         const PostID = req.params.id
-        const user = await Post.findById(PostID).populate("postedBy", "name _id userName")
+        const user = await Post.findById(PostID).populate("postedBy", "name _id userName pic")
 
         if (user) {
             const addComment = await Post.findByIdAndUpdate(PostID,

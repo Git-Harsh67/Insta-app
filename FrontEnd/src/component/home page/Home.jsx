@@ -10,6 +10,7 @@ const Home = () => {
     },
   });
   const posts = queryPost?.data || [];
+  // console.log(posts)
 
   return (
     <>

@@ -19,6 +19,8 @@ const Cards = ({ postDetail }) => {
     },
   });
 
+  const user = userPro.data?.user || [];
+
   const likePost = useMutation({
     mutationKey: ["like post"],
     mutationFn(id) {
@@ -26,8 +28,8 @@ const Cards = ({ postDetail }) => {
       return res;
     },
     onMutate() {
-      queryClient.setQueryData(["posts"], (posts) => {
-        return posts.map((post) => {
+      queryClient.setQueryData(["posts"], (oldPosts) => {
+        return oldPosts.map((post) => {
           if (post._id === postDetail._id) {
             return {
               ...post,
@@ -63,12 +65,20 @@ const Cards = ({ postDetail }) => {
   });
 
   const handleFollow = useMutation({
-    mutationFn: async (id)=>{
+    mutationFn: async (id) => {
       const res = await follow(id);
       return res;
     },
-    onSuccess() {
-      return setIsFollow(true);
+    onMutate() {
+      queryClient.setQueryData(["user"], (oldUser) => {
+        return {
+          ...oldUser,
+          user: {
+            ...oldUser.user,
+            following: [...oldUser.user.following, postDetail.postedBy._id],
+          },
+        };
+      });
     },
     onError(error) {
       return error.message;
@@ -76,12 +86,22 @@ const Cards = ({ postDetail }) => {
   });
 
   const handleUnFollow = useMutation({
-    mutationFn: async(id)=>{
+    mutationFn: async (id) => {
       const res = await unFollow(id);
       return res;
     },
-    onSuccess() {
-      return setIsFollow(false);
+    onMutate() {
+      queryClient.setQueryData(["user"], (oldUser) => {
+        return {
+          ...oldUser,
+          user: {
+            ...oldUser.user,
+            following: oldUser.user.following.filter(
+              (e) => e !== postDetail.postedBy._id,
+            ),
+          },
+        };
+      });
     },
     onError(error) {
       return error.message;
@@ -89,15 +109,9 @@ const Cards = ({ postDetail }) => {
   });
 
   const addComment = useMutation({
-  mutationFn(){
+    mutationFn() {},
+  });
 
-  }
-  })
-
-  const user = userPro.data?.user || [];
-
-  // console.log()
-  // console.log(postDetail)
   return (
     <div className="w-[40vw] rounded-md border-gray-500 text-white bg-gray-900 mt-6 mb-6 overflow-hidden">
       <div className="flex items-center justify-between py-2 px-4">
@@ -105,25 +119,25 @@ const Cards = ({ postDetail }) => {
           <button>
             <img
               className="w-7 h-7 border-none rounded-full object-cover"
-              src={user?.pic}
+              src={postDetail.postedBy.pic}
               alt="profile pic"
             />
           </button>
-          <p>{postDetail?.postedBy?.userName}</p>
+          <p>{postDetail.postedBy.userName}</p>
 
           {/* follow / unFollow */}
         </div>
-        {user?.following?.includes(postDetail?.postedBy?._id) === true && (
+        {user?.following?.includes(postDetail.postedBy._id) === true && (
           <button
             onClick={() => {
-              handleUnFollow.mutate(postDetail?.postedBy?._id);
+              handleUnFollow.mutate(postDetail.postedBy._id);
             }}
             className="rounded-md bg-gray-600 px-2 font-extralight"
           >
             Following
           </button>
         )}
-        {user?.following?.includes(postDetail?.postedBy?._id) === false && (
+        {user?.following?.includes(postDetail.postedBy._id) === false && (
           <button
             onClick={() => {
               handleFollow.mutate(postDetail?.postedBy?._id);
