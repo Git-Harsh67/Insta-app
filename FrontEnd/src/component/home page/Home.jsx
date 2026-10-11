@@ -9,8 +9,18 @@ const Home = () => {
       return allPost();
     },
   });
-  const posts = queryPost?.data || [];
-  // console.log(posts)
+  const userPro = useQuery({
+    queryKey: ["user"],
+    queryFn() {
+      return userProfile();
+    },
+  });
+
+  const user = userPro.data?.user || [];
+  // const posts = queryPost?.data || [];
+  const posts = queryPost.data?.filter(post => post.postedBy._id !== user?._id ) || [];
+  // console.log(queryPost?.data)
+  console.log(posts)
 
   return (
     <>
@@ -32,7 +42,7 @@ const Home = () => {
           )}
 
           {posts?.map((e) => (
-            <Cards key={e._id} postDetail={e} />
+            <Cards key={e._id} postDetail={e} user={user}/>
           ))}
         </div>
       )}

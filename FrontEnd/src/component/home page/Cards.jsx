@@ -4,7 +4,7 @@ import { follow, unFollow, userProfile } from "../../api/user";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import PostCard from "./PostCard";
 
-const Cards = ({ postDetail }) => {
+const Cards = ({ postDetail , user }) => {
   const [isFollow, setIsFollow] = useState(false);
   const [showPostCard, setShowPostCard] = useState(false);
   const [selectedPostData, setSelectedPostData] = useState([]);
@@ -12,14 +12,14 @@ const Cards = ({ postDetail }) => {
 
   const queryClient = useQueryClient();
 
-  const userPro = useQuery({
-    queryKey: ["user"],
-    queryFn() {
-      return userProfile();
-    },
-  });
+  // const userPro = useQuery({
+  //   queryKey: ["user"],
+  //   queryFn() {
+  //     return userProfile();
+  //   },
+  // });
 
-  const user = userPro.data?.user || [];
+  // const user = userPro.data?.user || [];
 
   const likePost = useMutation({
     mutationKey: ["like post"],
