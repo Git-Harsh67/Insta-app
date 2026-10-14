@@ -7,13 +7,13 @@ const Home = () => {
     queryKey: ["posts"],
     queryFn() {
       return allPost();
-    },
+    }
   });
   const userPro = useQuery({
     queryKey: ["user"],
     queryFn() {
       return userProfile();
-    },
+    }
   });
 
   const user = userPro.data?.user || [];
