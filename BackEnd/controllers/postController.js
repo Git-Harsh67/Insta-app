@@ -27,13 +27,13 @@ exports.createPost = async (req, res) => {
     }
 }
 
-exports.allPost = async (req, res) => {
+exports.feedPosts = async (req, res) => {
     try {
-        const allPosts = await Post.find().populate("postedBy", "name _id userName pic")
+        const feedPosts = await Post.find({postedBy : {$ne : req.user}}).populate("postedBy", "name _id userName pic")
 
         return res.status(200).json({
             msg: "=Successfully fetch all post",
-            allPosts
+            feedPosts
         })
     } catch (error) {
         return res.status(400).json({

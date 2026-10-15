@@ -11,14 +11,14 @@ export const createPost = async (postDis) => {
     return res.data
 }
 
-export const allPost = async () => {
-    const res = await axios.get(`${baseURL}/allPost`,
+export const feedPosts = async () => {
+    const res = await axios.get(`${baseURL}/feedPosts`,
         {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         })
-    return res.data.allPosts
+    return res.data.feedPosts
 }
 
 export const myPost = async () => {

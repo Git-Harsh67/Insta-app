@@ -1,4 +1,4 @@
-import { allPost } from "../../api/post";
+import { feedPosts } from "../../api/post";
 import Cards from "./Cards";
 import { useQuery } from "@tanstack/react-query";
 
@@ -6,7 +6,7 @@ const Home = () => {
   const queryPost = useQuery({
     queryKey: ["posts"],
     queryFn() {
-      return allPost();
+      return feedPosts();
     }
   });
   const userPro = useQuery({
@@ -17,10 +17,9 @@ const Home = () => {
   });
 
   const user = userPro.data?.user || [];
-  // const posts = queryPost?.data || [];
-  const posts = queryPost.data?.filter(post => post.postedBy._id !== user?._id ) || [];
-  // console.log(queryPost?.data)
+  const posts = queryPost?.data || [];
   console.log(posts)
+  // const posts = queryPost.data?.filter(post => post.postedBy._id !== user?._id || [] ) ;
 
   return (
     <>
