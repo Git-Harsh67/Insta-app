@@ -8,6 +8,8 @@ const PostCard = ({
   setShowChangePostCard,
   showPostMenuCard,
   setShowPostMenuCard,
+  postDetail,
+  user
 }) => {
   return (
     <div className="flex fixed inset-0 z-50 bg-gray-900/70 justify-center items-center">
@@ -27,7 +29,7 @@ const PostCard = ({
         <div className="bg-gray-950">
           <img
             className=" object-contain h-130 w-130 "
-            src={selectedPostData.photo}
+            src={selectedPostData?.photo}
           />
         </div>
 
@@ -41,13 +43,13 @@ const PostCard = ({
                 <div className="flex">
                   <img
                     className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
-                    src={selectedPostData.photo}
+                    src={selectedPostData?.photo}
                   />
                   <div className="pl-5">
                     <p className="font-semibold text-sm">
-                      {selectedPostData.postedBy.userName}
+                      {selectedPostData?.postedBy?.userName}
                     </p>
-                    <p className="text-xs">{selectedPostData.postedBy.name}</p>
+                    <p className="text-xs">{selectedPostData?.postedBy?.name}</p>
                   </div>
                 </div>
 
@@ -73,13 +75,13 @@ const PostCard = ({
               <div className="flex ">
                 <img
                   className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
-                  src={selectedPostData.photo}
+                  src={selectedPostData?.photo}
                 />
                 <div className="w-[33vw]">
                   <p className="font-semibold text-sm pl-5 ">
-                    {selectedPostData.postedBy.userName}
+                    {selectedPostData?.postedBy?.userName}
                     <span className="font-normal text-md pl-5">
-                      {selectedPostData.description}
+                      {selectedPostData?.description}
                     </span>
                   </p>
                 </div>
@@ -133,6 +135,8 @@ const PostCard = ({
           setShowPostMenuCard={setShowPostMenuCard}
           selectedPostData={selectedPostData}
           setShowPostCard={setShowPostCard}
+          postDetail={postDetail}
+          user={user}
         />
       )}
     </div>

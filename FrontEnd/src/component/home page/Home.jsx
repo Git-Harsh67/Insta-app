@@ -1,4 +1,5 @@
 import { feedPosts } from "../../api/post";
+import { userProfile } from "../../api/user";
 import Cards from "./Cards";
 import { useQuery } from "@tanstack/react-query";
 
@@ -18,8 +19,6 @@ const Home = () => {
 
   const user = userPro.data?.user || [];
   const posts = queryPost?.data || [];
-  console.log(posts)
-  // const posts = queryPost.data?.filter(post => post.postedBy._id !== user?._id || [] ) ;
 
   return (
     <>

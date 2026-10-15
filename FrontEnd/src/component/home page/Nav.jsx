@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Context } from "../../App";
 
-const Nav = (props) => {
+const Nav = ({setToUser, setToHome, setToPost}) => {
   const setToken = useContext(Context);
 
   return (
@@ -16,8 +16,8 @@ const Nav = (props) => {
       {/* home page */}
       <button
         onClick={() => {
-          props.setToUser(false);
-          props.setToHome(true);
+          setToUser(false);
+          setToHome(true);
         }}
       >
         <img className="w-[2vw]" src="./home_logo.png" alt="home_logo" />
@@ -25,8 +25,8 @@ const Nav = (props) => {
       {/* user page */}
       <button
         onClick={() => {
-          props.setToUser(true);
-          props.setToHome(false);
+          setToUser(true);
+          setToHome(false);
         }}
       >
         <img className="w-[2vw]" src="./user_logo.png" alt="user_logo" />
@@ -38,7 +38,7 @@ const Nav = (props) => {
       {/* create post */}
       <button
         onClick={() => {
-          props.setToPost(true);
+          setToPost(true);
         }}
       >
         <img className="w-[2vw]" src="./plus.png" alt="plus_logo" />

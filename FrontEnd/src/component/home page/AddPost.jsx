@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { createPost } from "../../api/post";
+import { createPost, myPost } from "../../api/post";
 import { uploadImage } from "../../utils/uploadImage";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const Post = (props) => {
+const Post = ({ setToPost }) => {
   const [imgUrl, setImgUrl] = useState("");
   const [mainImgUrl, setMainImgUrl] = useState("");
   const [showImg, setShowImg] = useState(false);
@@ -12,6 +13,23 @@ const Post = (props) => {
     description: description,
     photo: mainImgUrl,
   };
+
+  const queryClient = useQueryClient();
+
+  const handleAddPosts = useMutation({
+    mutationFn: (dis) => {
+      return createPost(dis);
+    },
+    onSuccess: (newPost) => {
+      queryClient.setQueryData(["myPosts"], (oldPosts) => {
+        return ([newPost, ...(oldPosts ?? [])], setToPost(false));
+      });
+    },
+    onError(error){
+      return error.message
+    }
+  });
+
   return (
     <>
       <div className="fixed inset-0 z-50 bg-gray-900/70 ">
@@ -19,7 +37,7 @@ const Post = (props) => {
         <button
           className="absolute right-4 top-4"
           onClick={() => {
-            props.setToPost(false);
+            setToPost(false);
           }}
         >
           <img className=" w-[2vw] " src="./close.png" alt="X_logo" />
@@ -96,12 +114,7 @@ const Post = (props) => {
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
-                        try {
-                          createPost(postDis);
-                          props.setToPost(false);
-                        } catch (error) {
-                          console.log(error);
-                        }
+                        handleAddPosts.mutate(postDis);
                       }}
                     >
                       <div className="flex justify-between bg-gray-950 py-2 px-4 text-xl w-[28vw]">

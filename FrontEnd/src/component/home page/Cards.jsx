@@ -1,25 +1,16 @@
 import { useState } from "react";
 import { like, unlike } from "../../api/post";
-import { follow, unFollow, userProfile } from "../../api/user";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { follow, unFollow } from "../../api/user";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import PostCard from "./PostCard";
 
 const Cards = ({ postDetail , user }) => {
-  const [isFollow, setIsFollow] = useState(false);
+
   const [showPostCard, setShowPostCard] = useState(false);
   const [selectedPostData, setSelectedPostData] = useState([]);
   const [showPostMenuCard, setShowPostMenuCard] = useState(false);
 
   const queryClient = useQueryClient();
-
-  // const userPro = useQuery({
-  //   queryKey: ["user"],
-  //   queryFn() {
-  //     return userProfile();
-  //   },
-  // });
-
-  // const user = userPro.data?.user || [];
 
   const likePost = useMutation({
     mutationKey: ["like post"],
@@ -119,25 +110,25 @@ const Cards = ({ postDetail , user }) => {
           <button>
             <img
               className="w-7 h-7 border-none rounded-full object-cover"
-              src={postDetail.postedBy.pic}
+              src={postDetail?.postedBy?.pic}
               alt="profile pic"
             />
           </button>
-          <p>{postDetail.postedBy.userName}</p>
+          <p>{postDetail?.postedBy?.userName}</p>
 
           {/* follow / unFollow */}
         </div>
-        {user?.following?.includes(postDetail.postedBy._id) === true && (
+        {user?.following?.includes(postDetail?.postedBy?._id) === true && (
           <button
             onClick={() => {
-              handleUnFollow.mutate(postDetail.postedBy._id);
+              handleUnFollow.mutate(postDetail?.postedBy?._id);
             }}
             className="rounded-md bg-gray-600 px-2 font-extralight"
           >
             Following
           </button>
         )}
-        {user?.following?.includes(postDetail.postedBy._id) === false && (
+        {user?.following?.includes(postDetail?.postedBy?._id) === false && (
           <button
             onClick={() => {
               handleFollow.mutate(postDetail?.postedBy?._id);
@@ -150,9 +141,6 @@ const Cards = ({ postDetail , user }) => {
       </div>
 
       <img
-        onClick={() => {
-          console.log(postDetail);
-        }}
         className=" w-full max-h-[90vh] object-contain bg-black"
         src={postDetail?.photo}
         alt="post pic"
@@ -162,10 +150,10 @@ const Cards = ({ postDetail , user }) => {
       <div className="flex gap-x-4 ml-4 my-2">
         {/* like */}
         <div className="flex items-center gap-x-3">
-          {postDetail?.likes.includes(user?._id) === true ? (
+          {postDetail?.likes?.includes(user?._id) === true ? (
             <button
               onClick={() => {
-                unLikePost.mutate(postDetail._id);
+                unLikePost.mutate(postDetail?._id);
               }}
             >
               <img className="w-7 h-7" src="./redHeart.png " alt="like logo" />
@@ -183,7 +171,7 @@ const Cards = ({ postDetail , user }) => {
               />
             </button>
           )}
-          <p>{postDetail?.likes?.length}</p>
+          <p>{postDetail?.likes.length}</p>
         </div>
         {/* comment */}
         <div
@@ -196,7 +184,7 @@ const Cards = ({ postDetail , user }) => {
           <button>
             <img className=" w-7 h-7" src="./chat_logo.png" alt="chat logo" />
           </button>
-          <p>demo</p>
+          <p>{postDetail?.comment?.length}</p>
         </div>
       </div>
 
@@ -208,6 +196,8 @@ const Cards = ({ postDetail , user }) => {
           setShowPostCard={setShowPostCard}
           showPostMenuCard={showPostMenuCard}
           setShowPostMenuCard={setShowPostMenuCard}
+          postDetail={postDetail}
+          user={user}
         />
       )}
     </div>
