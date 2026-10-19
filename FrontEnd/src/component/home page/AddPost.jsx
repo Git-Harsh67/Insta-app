@@ -14,22 +14,6 @@ const Post = ({ setToPost }) => {
     photo: mainImgUrl,
   };
 
-  const queryClient = useQueryClient();
-
-  const handleAddPosts = useMutation({
-    mutationFn: (dis) => {
-      return createPost(dis);
-    },
-    onSuccess: (newPost) => {
-      queryClient.setQueryData(["myPosts"], (oldPosts) => {
-        return ([newPost, ...(oldPosts ?? [])], setToPost(false));
-      });
-    },
-    onError(error){
-      return error.message
-    }
-  });
-
   return (
     <>
       <div className="fixed inset-0 z-50 bg-gray-900/70 ">
@@ -114,7 +98,8 @@ const Post = ({ setToPost }) => {
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
-                        handleAddPosts.mutate(postDis);
+                        createPost(postDis);
+                        setToPost(false);
                       }}
                     >
                       <div className="flex justify-between bg-gray-950 py-2 px-4 text-xl w-[28vw]">

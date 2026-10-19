@@ -45,6 +45,7 @@ const UserPage = () => {
           showChangeImgCard,
           selectedPostData,
           showChangePostCard,
+          detail,
           setUserName,
           setShowEditPage,
           setBio,
@@ -63,7 +64,7 @@ const UserPage = () => {
             <div className="flex gap-x-16  items-center">
               <div>
                 <img
-                  className="w-30 h-30 border-none rounded-full object-cover"
+                  className="w-30 h-30 border-none rounded-full object-cover bg-black"
                   src={detail?.user?.pic || `./user_logo.png`}
                 />
               </div>

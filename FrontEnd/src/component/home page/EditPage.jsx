@@ -7,16 +7,16 @@ const EditPage = () => {
   const { setShowEditPage, setShowChangeImgCard, showChangeImgCard, detail } =
     useContext(UserPageContext);
 
-  const [editUserName, setEditUserName] = useState(detail?.userName);
-  const [editUserImg, setEditUserImg] = useState(detail?.pic);
-  const [editBio, setEditBio] = useState(detail?.bio);
+  const [editUserName, setEditUserName] = useState(detail?.user?.userName);
+  const [editUserImg, setEditUserImg] = useState(detail?.user?.pic);
+  const [editBio, setEditBio] = useState(detail?.user?.bio);
 
   const changes = {
     pic: editUserImg,
     userName: editUserName,
     bio: editBio,
   };
-
+console.log(detail)
   return (
     <div className="h-screen w-[55vw] ml-[25vw] text-white">
       {/* back btn */}
@@ -55,8 +55,7 @@ const EditPage = () => {
             <div className="flex items-center gap-x-[2vw]">
               <img
                 className="w-[5vw] h-[5vw] border-none rounded-full object-cover"
-                src={editUserImg}
-                // `./user_logo.png`
+                src={editUserImg || `./user_logo.png`}
               />
               <div>
                 <p className="font-semibold text-xl">{editUserName}</p>
