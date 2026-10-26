@@ -1,3 +1,4 @@
+import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import ChangePost from "./PostDeleteCard";
 import PostMenu from "./PostMenuCard";
 
@@ -9,8 +10,23 @@ const PostCard = ({
   showPostMenuCard,
   setShowPostMenuCard,
   postDetail,
-  user
+  user,
 }) => {
+
+  const queryClient = useQueryClient()
+
+  const addComment = useMutation({
+    mutationFn() {
+      comment(postDetail?._id);
+    },
+    onMutate() {
+      queryClient.setQueryData(["posts"], (oldPost) =>{
+        
+      })
+    }
+  });
+
+
   return (
     <div className="flex fixed inset-0 z-50 bg-gray-900/70 justify-center items-center">
       {/* back btn */}
@@ -40,7 +56,7 @@ const PostCard = ({
             <div className="flex items-center py-2 px-3 outline-none text-white border-b border-gray-600">
               {/* user detail */}
               <div className="flex items-center justify-between w-[40vw]">
-                <div className="flex">
+                <div className="flex items-center">
                   <img
                     className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
                     src={selectedPostData?.photo}
@@ -49,17 +65,16 @@ const PostCard = ({
                     <p className="font-semibold text-sm">
                       {selectedPostData?.postedBy?.userName}
                     </p>
-                    <p className="text-xs">{selectedPostData?.postedBy?.name}</p>
                   </div>
                 </div>
 
                 <div>
                   <img
                     onClick={() => {
-                      if(setShowChangePostCard){
-                        setShowChangePostCard(true)
-                      }else{
-                        setShowPostMenuCard(true)
+                      if (setShowChangePostCard) {
+                        setShowChangePostCard(true);
+                      } else {
+                        setShowPostMenuCard(true);
                       }
                     }}
                     className="w-[1vw]"
@@ -72,7 +87,7 @@ const PostCard = ({
             {/*user bio/comment */}
             <div className="flex items-center py-2 px-3 outline-none text-white ">
               {/* user detail */}
-              <div className="flex ">
+              <div className="flex items-center">
                 <img
                   className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
                   src={selectedPostData?.photo}
@@ -89,26 +104,11 @@ const PostCard = ({
             </div>
 
             {/* others comments */}
-            <div className="flex items-center py-2 px-3 outline-none text-white ">
-              {/* user detail */}
-              <div className="flex ">
-                <img
-                  className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsM28_ZUjVSSuW5N7JGfLArfiYaWoIsUGNzJYO9kKv0Q&s=10"
-                />
-                <div className="w-[33vw]">
-                  <p className="font-semibold text-sm pl-5 ">
-                    userName
-                    <span className="font-normal text-md pl-5">comments</span>
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* add comment form */}
           <div>
-            <form>
+            <form onSubmit={() => {}}>
               <input
                 className="px-3 py-3 outline-none border-t border-gray-500 text-white w-[35vw]"
                 type="text"
