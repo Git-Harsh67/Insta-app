@@ -1,6 +1,12 @@
-import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import ChangePost from "./PostDeleteCard";
 import PostMenu from "./PostMenuCard";
+import { comment } from "../../api/post";
 
 const PostCard = ({
   selectedPostData,
@@ -12,20 +18,28 @@ const PostCard = ({
   postDetail,
   user,
 }) => {
-
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const addComment = useMutation({
-    mutationFn() {
-      comment(postDetail?._id);
+    mutationFn(id) {
+      comment(id);
     },
     onMutate() {
-      queryClient.setQueryData(["posts"], (oldPost) =>{
-        
-      })
-    }
+      queryClient.setQueryData(["posts"], (oldPost) => {
+        return oldPost.map((post) => {
+          if (post?._id === postDetail?._id) {
+            return {
+              ...post,
+              comment: [...post.comment, postDetail?._id],
+            };
+          }
+        });
+      });
+    },
+    onError(error) {
+      return error.message;
+    },
   });
-
 
   return (
     <div className="flex fixed inset-0 z-50 bg-gray-900/70 justify-center items-center">
@@ -104,11 +118,30 @@ const PostCard = ({
             </div>
 
             {/* others comments */}
+            <div className="flex items-center">
+              <img
+                className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
+                src={user?.photo}
+              />
+              <div className="w-[33vw]">
+                <p className="font-semibold text-sm pl-5 ">
+                  {user?.postedBy?.userName}
+                  <span className="font-normal text-md pl-5">
+                                                                               
+                  </span>
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* add comment form */}
           <div>
-            <form onSubmit={() => {}}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                addComment.mutate(postDetail._id);
+              }}
+            >
               <input
                 className="px-3 py-3 outline-none border-t border-gray-500 text-white w-[35vw]"
                 type="text"
