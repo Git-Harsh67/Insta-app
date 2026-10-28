@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const PostMenu = ({
   setShowPostMenuCard,
-  selectedPostData,
   setShowPostCard,
   postDetail,
   user,

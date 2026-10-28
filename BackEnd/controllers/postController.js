@@ -9,7 +9,7 @@ exports.createPost = async (req, res) => {
                 msg: "All field required "
             })
         }
-        
+
         const post = await Post.create({
             description,
             postedBy: req.user,
@@ -29,7 +29,7 @@ exports.createPost = async (req, res) => {
 
 exports.feedPosts = async (req, res) => {
     try {
-        const feedPosts = await Post.find({postedBy : {$ne : req.user}}).populate("postedBy", "name _id userName pic")
+        const feedPosts = await Post.find({ postedBy: { $ne: req.user } }).populate("postedBy", "name _id userName pic")
 
         return res.status(200).json({
             msg: "=Successfully fetch all post",
@@ -162,10 +162,10 @@ exports.comment = async (req, res) => {
                     }
                 },
                 {
-                    new: true
+                    returnDocument: 'after'
                 }
-            ).populate("postedBy", " name _id")
-                .populate("comment.postedBy", " name _id");
+            ).populate("postedBy", "name _id userName pic")
+.populate("comment.postedBy", "_id name userName pic");
 
             return res.status(200).json({
                 msg: "comment added",
@@ -211,7 +211,7 @@ exports.delComment = async (req, res) => {
                 }
             },
                 {
-                    returnDocument: 'after' 
+                    returnDocument: 'after'
                 })
             return res.status(200).json({
                 msg: "comment removed",

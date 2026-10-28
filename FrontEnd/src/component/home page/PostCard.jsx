@@ -9,7 +9,6 @@ import PostMenu from "./PostMenuCard";
 import { comment } from "../../api/post";
 
 const PostCard = ({
-  selectedPostData,
   setShowPostCard,
   showChangePostCard,
   setShowChangePostCard,
@@ -59,7 +58,7 @@ const PostCard = ({
         <div className="bg-gray-950">
           <img
             className=" object-contain h-130 w-130 "
-            src={selectedPostData?.photo}
+            src={postDetail?.photo}
           />
         </div>
 
@@ -73,11 +72,11 @@ const PostCard = ({
                 <div className="flex items-center">
                   <img
                     className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
-                    src={selectedPostData?.photo}
+                    src={postDetail?.postedBy?.pic}
                   />
-                  <div className="pl-5">
+                  <div className="pl-4">
                     <p className="font-semibold text-sm">
-                      {selectedPostData?.postedBy?.userName}
+                      {postDetail?.postedBy?.userName}
                     </p>
                   </div>
                 </div>
@@ -104,13 +103,13 @@ const PostCard = ({
               <div className="flex items-center">
                 <img
                   className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
-                  src={selectedPostData?.photo}
+                  src={postDetail?.postedBy?.pic}
                 />
                 <div className="w-[33vw]">
-                  <p className="font-semibold text-sm pl-5 ">
-                    {selectedPostData?.postedBy?.userName}
-                    <span className="font-normal text-md pl-5">
-                      {selectedPostData?.description}
+                  <p className="font-semibold text-sm pl-4 ">
+                    {postDetail?.postedBy?.userName}
+                    <span className="font-normal text-md pl-3">
+                      {postDetail?.description}
                     </span>
                   </p>
                 </div>
@@ -118,20 +117,25 @@ const PostCard = ({
             </div>
 
             {/* others comments */}
-            <div className="flex items-center">
-              <img
-                className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
-                src={user?.photo}
-              />
-              <div className="w-[33vw]">
-                <p className="font-semibold text-sm pl-5 ">
-                  {user?.postedBy?.userName}
-                  <span className="font-normal text-md pl-5">
-                                                                               
-                  </span>
-                </p>
+            {postDetail?.comment.map((com) => (
+              <div className="flex items-center py-2 px-3 outline-none text-white ">
+                <div className="flex items-center">
+                  <img
+                    className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
+                    src={com?.postedBy?.pic}
+                  />
+                  <div className="w-[33vw]">
+                    <p className="font-semibold text-sm pl-4 ">
+                      {/* {user?.userName} */}
+                      {com?.postedBy?.userName}
+                      <span className="font-normal text-md pl-3">
+                        {com?.text}
+                      </span>
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
 
           {/* add comment form */}
@@ -139,7 +143,7 @@ const PostCard = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                addComment.mutate(postDetail._id);
+                addComment.mutate(postDetail?._id);
               }}
             >
               <input
@@ -159,14 +163,13 @@ const PostCard = ({
       {showChangePostCard === true && (
         <ChangePost
           setShowChangePostCard={setShowChangePostCard}
-          selectedPostData={selectedPostData}
+          postDetail={postDetail}
           setShowPostCard={setShowPostCard}
         />
       )}
       {showPostMenuCard === true && (
         <PostMenu
           setShowPostMenuCard={setShowPostMenuCard}
-          selectedPostData={selectedPostData}
           setShowPostCard={setShowPostCard}
           postDetail={postDetail}
           user={user}

@@ -7,7 +7,6 @@ import PostCard from "./PostCard";
 const Cards = ({ postDetail , user }) => {
 
   const [showPostCard, setShowPostCard] = useState(false);
-  const [selectedPostData, setSelectedPostData] = useState([]);
   const [showPostMenuCard, setShowPostMenuCard] = useState(false);
 
   const queryClient = useQueryClient();
@@ -99,9 +98,9 @@ const Cards = ({ postDetail , user }) => {
     },
   });
 
-  const addComment = useMutation({
-    mutationFn() {},
-  });
+  // const addComment = useMutation({
+  //   mutationFn() {},
+  // });
 
   return (
     <div className="w-[40vw] rounded-md border-gray-500 text-white bg-gray-900 mt-6 mb-6 overflow-hidden">
@@ -177,7 +176,6 @@ const Cards = ({ postDetail , user }) => {
         <div
           onClick={() => {
             setShowPostCard(true);
-            setSelectedPostData(postDetail);
           }}
           className="flex items-center gap-x-3"
         >
@@ -192,7 +190,6 @@ const Cards = ({ postDetail , user }) => {
 
       {showPostCard === true && (
         <PostCard
-          selectedPostData={selectedPostData}
           setShowPostCard={setShowPostCard}
           showPostMenuCard={showPostMenuCard}
           setShowPostMenuCard={setShowPostMenuCard}

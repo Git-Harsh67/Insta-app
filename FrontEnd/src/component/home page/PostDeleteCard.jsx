@@ -1,9 +1,9 @@
 import { delPost } from "../../api/post";
 
-const ChangePost = ({setShowChangePostCard, selectedPostData,setShowPostCard}) => {
+const ChangePost = ({setShowChangePostCard, postDetail, setShowPostCard}) => {
 
   const del = async () => {
-    const res = await delPost(selectedPostData._id);
+    const res = await delPost(postDetail._id);
     console.log(res)
     return res;
   };
