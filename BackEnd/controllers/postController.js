@@ -1,4 +1,5 @@
 const Post = require("../models/post")
+const User = require("../models/user")
 
 exports.createPost = async (req, res) => {
     try {
@@ -149,15 +150,17 @@ exports.unLikePost = async (req, res) => {
 exports.comment = async (req, res) => {
     try {
         const PostID = req.params.id
-        const user = await Post.findById(PostID).populate("postedBy", "name _id userName pic")
-
-        if (user) {
+        const userPost = await Post.findById(PostID).populate("postedBy", "name _id userName pic")
+        const user = await User.findById(req.user).select("_id userName pic")
+        if (userPost) {
             const addComment = await Post.findByIdAndUpdate(PostID,
                 {
                     $push: {
                         comment: {
-                            text: req.body.comment,
-                            postedBy: req.user
+                            text: req.body,
+                            postedBy: req.user,
+                            userName: user.userName,
+                            pic: user.pic
                         }
                     }
                 },
@@ -165,7 +168,7 @@ exports.comment = async (req, res) => {
                     returnDocument: 'after'
                 }
             ).populate("postedBy", "name _id userName pic")
-.populate("comment.postedBy", "_id name userName pic");
+                .populate("comment.postedBy", "_id name userName pic");
 
             return res.status(200).json({
                 msg: "comment added",

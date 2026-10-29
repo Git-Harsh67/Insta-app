@@ -1,12 +1,11 @@
 import {
-  QueryClient,
   useMutation,
-  useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
 import ChangePost from "./PostDeleteCard";
 import PostMenu from "./PostMenuCard";
-import { comment } from "../../api/post";
+import{addComment} from "../../api/post"
+import { useState } from "react";
 
 const PostCard = ({
   setShowPostCard,
@@ -17,11 +16,12 @@ const PostCard = ({
   postDetail,
   user,
 }) => {
+  const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
 
-  const addComment = useMutation({
-    mutationFn(id) {
-      comment(id);
+  const AddComment = useMutation({
+    mutationFn(id, text) {
+      addComment(id, text);
     },
     onMutate() {
       queryClient.setQueryData(["posts"], (oldPost) => {
@@ -118,16 +118,16 @@ const PostCard = ({
 
             {/* others comments */}
             {postDetail?.comment.map((com) => (
-              <div className="flex items-center py-2 px-3 outline-none text-white ">
+              <div key={com._id} className="flex items-center py-2 px-3 outline-none text-white ">
                 <div className="flex items-center">
                   <img
                     className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
-                    src={com?.postedBy?.pic}
+                    src={com?.pic}
                   />
                   <div className="w-[33vw]">
                     <p className="font-semibold text-sm pl-4 ">
                       {/* {user?.userName} */}
-                      {com?.postedBy?.userName}
+                      {com?.userName}
                       <span className="font-normal text-md pl-3">
                         {com?.text}
                       </span>
@@ -143,10 +143,16 @@ const PostCard = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                addComment.mutate(postDetail?._id);
+                AddComment.mutate(postDetail?._id, comment);
+                setComment("")
+                // console.log(comment)
               }}
             >
               <input
+                value={comment}
+                onChange={(e) => {
+                  setComment(e.target.value);
+                }}
                 className="px-3 py-3 outline-none border-t border-gray-500 text-white w-[35vw]"
                 type="text"
                 placeholder="Add a comment"
