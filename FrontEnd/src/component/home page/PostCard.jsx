@@ -1,10 +1,7 @@
-import {
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ChangePost from "./PostDeleteCard";
 import PostMenu from "./PostMenuCard";
-import{addComment} from "../../api/post"
+import { addComment } from "../../api/post";
 import { useState } from "react";
 
 const PostCard = ({
@@ -20,7 +17,7 @@ const PostCard = ({
   const queryClient = useQueryClient();
 
   const AddComment = useMutation({
-    mutationFn(id, text) {
+    mutationFn({id, text}) {
       addComment(id, text);
     },
     onMutate() {
@@ -118,7 +115,10 @@ const PostCard = ({
 
             {/* others comments */}
             {postDetail?.comment.map((com) => (
-              <div key={com._id} className="flex items-center py-2 px-3 outline-none text-white ">
+              <div
+                key={com._id}
+                className="flex items-center py-2 px-3 outline-none text-white "
+              >
                 <div className="flex items-center">
                   <img
                     className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
@@ -143,9 +143,8 @@ const PostCard = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                AddComment.mutate(postDetail?._id, comment);
-                setComment("")
-                // console.log(comment)
+                AddComment.mutate({id: postDetail?._id, text:comment});
+                setComment("");
               }}
             >
               <input
@@ -159,7 +158,7 @@ const PostCard = ({
               />
               <input
                 className="px-3 py-3 text-gray-500 border-t border-gray-500 w-[5vw] font-semibold"
-                type="button"
+                type="submit"
                 value="Post"
               />
             </form>
