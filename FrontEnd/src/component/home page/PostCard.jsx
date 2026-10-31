@@ -17,23 +17,20 @@ const PostCard = ({
   const queryClient = useQueryClient();
 
   const AddComment = useMutation({
+    mutationKey: ["addComment"],
     mutationFn({ id, text }) {
-      addComment(id, {text});
+      addComment(id, { text });
     },
-    onMutate({text}) {
-      queryClient.setQueryData(["posts"], (oldPost) => {
-        return oldPost.map((post) => {
-          if (post?._id === postDetail?._id) {
-            return {
-              ...post,
-              comment: [
-                ...post.comment,
-                {text},
-              ],
-            };
-          }
-        });
-      });
+    // onMutate({ text }) {
+    //   const optimisticData = {
+    //     id : Math.random(),
+    //     text : comment,
+    //     pic: user.pic,
+    //     userName : user.userName
+    //   } 
+    // },
+    onSuccess() {
+      setComment("");
     },
     onError(error) {
       return error.message;
@@ -147,7 +144,6 @@ const PostCard = ({
               onSubmit={(e) => {
                 e.preventDefault();
                 AddComment.mutate({ id: postDetail?._id, text: comment });
-                setComment("");
               }}
             >
               <input
