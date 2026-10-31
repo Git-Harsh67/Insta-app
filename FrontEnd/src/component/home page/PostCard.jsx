@@ -17,16 +17,19 @@ const PostCard = ({
   const queryClient = useQueryClient();
 
   const AddComment = useMutation({
-    mutationFn({id, text}) {
-      addComment(id, text);
+    mutationFn({ id, text }) {
+      addComment(id, {text});
     },
-    onMutate() {
+    onMutate({text}) {
       queryClient.setQueryData(["posts"], (oldPost) => {
         return oldPost.map((post) => {
           if (post?._id === postDetail?._id) {
             return {
               ...post,
-              comment: [...post.comment, postDetail?._id],
+              comment: [
+                ...post.comment,
+                {text},
+              ],
             };
           }
         });
@@ -143,7 +146,7 @@ const PostCard = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                AddComment.mutate({id: postDetail?._id, text:comment});
+                AddComment.mutate({ id: postDetail?._id, text: comment });
                 setComment("");
               }}
             >
@@ -156,11 +159,12 @@ const PostCard = ({
                 type="text"
                 placeholder="Add a comment"
               />
-              <input
-                className="px-3 py-3 text-gray-500 border-t border-gray-500 w-[5vw] font-semibold"
+              <button
                 type="submit"
-                value="Post"
-              />
+                className="px-3 py-3 text-gray-500 border-t border-gray-500 w-[5vw] font-semibold"
+              >
+                Post
+              </button>
             </form>
           </div>
         </div>

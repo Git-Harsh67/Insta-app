@@ -57,13 +57,19 @@ export const unlike = async (postId) => {
     return res.data
 }
 
-export const addComment = async (postId) => {
-    const res = await axios.put(`${baseURL}/comment/${postId}`,{}, {
+export const addComment = async (postId, data) => {
+    try {
+            const res = await axios.put(`${baseURL}/comment/${postId}`, data, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
         }
     })
     return res.data
+    } catch (error) {
+        console.error("Failed to add comment:", error.response?.data || error.message)
+        throw error
+    }
+
 }
 
 export const delComment = async (postId) => {
