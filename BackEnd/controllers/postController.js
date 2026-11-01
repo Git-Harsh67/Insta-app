@@ -2,6 +2,7 @@ const Post = require("../models/post")
 const User = require("../models/user")
 
 exports.createPost = async (req, res) => {
+const user = await Post.findById(req.user).populate("name _id userName pic")
     try {
         const { description, postedBy, photo } = req.body
 
@@ -13,7 +14,12 @@ exports.createPost = async (req, res) => {
 
         const post = await Post.create({
             description,
-            postedBy: req.user,
+            postedBy: {
+                id: user._id ,
+                name : user.name,
+                userName : user.userName ,
+                pic: user.pic ,
+            },
             photo
         })
 
@@ -150,25 +156,21 @@ exports.unLikePost = async (req, res) => {
 exports.comment = async (req, res) => {
     try {
         const PostID = req.params.id
-        const userPost = await Post.findById(PostID).populate("postedBy", "name _id userName pic")
-        const user = await User.findById(req.user).select("_id userName pic")
+        const userPost = await Post.findById(PostID).populate("postedBy", "_id name userName pic");
         if (userPost) {
             const addComment = await Post.findByIdAndUpdate(PostID,
                 {
                     $push: {
                         comment: {
-                            text: req.body,
+                            text: req.body.text,
                             postedBy: req.user,
-                            userName: user.userName,
-                            pic: user.pic
-                        }
+                        },
                     }
                 },
                 {
                     returnDocument: 'after'
                 }
-            ).populate("postedBy", "name _id userName pic")
-                .populate("comment.postedBy", "_id name userName pic");
+            )
 
             return res.status(200).json({
                 msg: "comment added",

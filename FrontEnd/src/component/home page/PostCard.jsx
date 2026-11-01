@@ -19,16 +19,26 @@ const PostCard = ({
   const AddComment = useMutation({
     mutationKey: ["addComment"],
     mutationFn({ id, text }) {
-      addComment(id, { text });
+      addComment(id, {text} );
     },
-    // onMutate({ text }) {
-    //   const optimisticData = {
-    //     id : Math.random(),
-    //     text : comment,
-    //     pic: user.pic,
-    //     userName : user.userName
-    //   } 
-    // },
+    onMutate({text}) {
+      const optimisticData = {
+        id : Math.random(),
+        text : text,
+        pic: user.pic,
+        userName : user.userName
+      } 
+      queryClient.setQueryData(["posts"],(oldPost)=>{
+         oldPost.map((post)=>{
+          if(post._id === postDetail._id){
+           return{
+            ...post,
+            comment : [ ...post.comment, optimisticData]
+           }
+          }
+        })
+      })
+    },
     onSuccess() {
       setComment("");
     },
@@ -143,7 +153,8 @@ const PostCard = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                AddComment.mutate({ id: postDetail?._id, text: comment });
+                AddComment.mutate(postDetail?._id, comment );
+                console.log(comment)
               }}
             >
               <input
