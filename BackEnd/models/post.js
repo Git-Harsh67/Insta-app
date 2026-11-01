@@ -12,7 +12,8 @@ const postSchema = new mongoose.Schema({
             text: String,
             postedBy: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
+                ref: "User",
+                required: true
             }
         },
     ],
@@ -24,7 +25,8 @@ const postSchema = new mongoose.Schema({
     ],
     postedBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     }
 },
     {

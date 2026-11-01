@@ -2,13 +2,13 @@ const Post = require("../models/post")
 const User = require("../models/user")
 
 exports.createPost = async (req, res) => {
-const user = await Post.findById(req.user).populate("name _id userName pic")
+const user = await User.findById(req.user).select("-password")
     try {
         const { description, postedBy, photo } = req.body
 
         if (!photo || !description) {
             return res.status(422).json({
-                msg: "All field required "
+                msg: "All field required"
             })
         }
 

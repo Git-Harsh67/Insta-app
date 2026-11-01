@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { createPost, myPost } from "../../api/post";
 import { uploadImage } from "../../utils/uploadImage";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Post = ({ setToPost }) => {
   const [imgUrl, setImgUrl] = useState("");
@@ -96,9 +95,9 @@ const Post = ({ setToPost }) => {
                 {captionCard === true && (
                   <div>
                     <form
-                      onSubmit={(e) => {
+                      onSubmit={async (e) => {
                         e.preventDefault();
-                        createPost(postDis);
+                        await createPost(postDis);
                         setToPost(false);
                       }}
                     >
@@ -140,9 +139,7 @@ const Post = ({ setToPost }) => {
 
                           <textarea
                             onChange={(e) => {
-                              setTimeout(() => {
                                 setDescription(e.target.value);
-                              }, 400);
                             }}
                             placeholder="Write something about your post..."
                             className="w-full h-[30vh] bg-gray-800/60 border border-gray-700 rounded-xl outline-none text-white px-4 py-3 placeholder-gray-500 resize-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
