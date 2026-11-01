@@ -1,9 +1,10 @@
 const Post = require("../models/post")
+const user = require("../models/user")
 const User = require("../models/user")
 
 exports.createPost = async (req, res) => {
-const user = await User.findById(req.user).select("-password")
     try {
+        const user = await User.findById(req.user).select("-password")
         const { description, postedBy, photo } = req.body
 
         if (!photo || !description) {
@@ -14,12 +15,7 @@ const user = await User.findById(req.user).select("-password")
 
         const post = await Post.create({
             description,
-            postedBy: {
-                id: user._id ,
-                name : user.name,
-                userName : user.userName ,
-                pic: user.pic ,
-            },
+            postedBy: req.user,
             photo
         })
 
@@ -156,14 +152,14 @@ exports.unLikePost = async (req, res) => {
 exports.comment = async (req, res) => {
     try {
         const PostID = req.params.id
-        const userPost = await Post.findById(PostID).populate("postedBy", "_id name userName pic");
+        const userPost = await Post.findById(PostID)
         if (userPost) {
             const addComment = await Post.findByIdAndUpdate(PostID,
                 {
                     $push: {
                         comment: {
                             text: req.body.text,
-                            postedBy: req.user,
+                            postedBy: req.user
                         },
                     }
                 },

@@ -19,25 +19,25 @@ const PostCard = ({
   const AddComment = useMutation({
     mutationKey: ["addComment"],
     mutationFn({ id, text }) {
-      addComment(id, {text} );
+     return addComment(id, text);
     },
-    onMutate({text}) {
+    onMutate() {
       const optimisticData = {
-        id : Math.random(),
-        text : text,
-        pic: user.pic,
-        userName : user.userName
-      } 
-      queryClient.setQueryData(["posts"],(oldPost)=>{
-         oldPost.map((post)=>{
-          if(post._id === postDetail._id){
-           return{
-            ...post,
-            comment : [ ...post.comment, optimisticData]
-           }
+        id: Math.random(),
+        text: comment,
+        pic: user?.pic,
+        userName: user?.userName,
+      };
+      queryClient.setQueryData(["posts"], (oldPost) => {
+        return oldPost.map((post) => {
+          if (post._id === postDetail._id) {
+            return {
+              ...post,
+              comment: [...post.comment, optimisticData],
+            };
           }
-        })
-      })
+        });
+      });
     },
     onSuccess() {
       setComment("");
@@ -126,18 +126,18 @@ const PostCard = ({
             {/* others comments */}
             {postDetail?.comment.map((com) => (
               <div
-                key={com._id}
+                key={com?._id}
                 className="flex items-center py-2 px-3 outline-none text-white "
               >
                 <div className="flex items-center">
                   <img
                     className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
-                    src={com?.pic}
+                    src={user?.pic}
                   />
                   <div className="w-[33vw]">
                     <p className="font-semibold text-sm pl-4 ">
                       {/* {user?.userName} */}
-                      {com?.userName}
+                      {user?.userName}
                       <span className="font-normal text-md pl-3">
                         {com?.text}
                       </span>
@@ -153,8 +153,7 @@ const PostCard = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                AddComment.mutate(postDetail?._id, comment );
-                console.log(comment)
+                AddComment.mutate({id: postDetail?._id, text: comment});
               }}
             >
               <input
