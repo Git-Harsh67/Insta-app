@@ -6,7 +6,12 @@ const app = express()
 
 dataBase()
 
-app.use(cors())
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://insta-app-frontend.onrender.com"
+    ]
+}))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
