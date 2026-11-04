@@ -40,7 +40,7 @@ const Home = () => {
           )}
 
           {posts?.map((e) => (
-            <Cards key={e._id} postDetail={e} user={user}/>
+            <Cards key={e._id} selectedPostData={e} user={user}/>
           ))}
         </div>
       )}

@@ -16,7 +16,9 @@ const EditPage = () => {
     userName: editUserName,
     bio: editBio,
   };
-console.log(detail)
+
+  
+
   return (
     <div className="h-screen w-[55vw] ml-[25vw] text-white">
       {/* back btn */}

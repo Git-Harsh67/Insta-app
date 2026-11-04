@@ -10,7 +10,7 @@ const PostCard = ({
   setShowChangePostCard,
   showPostMenuCard,
   setShowPostMenuCard,
-  postDetail,
+  selectedPostData,
   user,
 }) => {
   const [comment, setComment] = useState("");
@@ -19,7 +19,7 @@ const PostCard = ({
   const AddComment = useMutation({
     mutationKey: ["addComment"],
     mutationFn({ id, text }) {
-     return addComment(id, text);
+      return addComment(id, text);
     },
     onMutate() {
       const optimisticData = {
@@ -30,7 +30,7 @@ const PostCard = ({
       };
       queryClient.setQueryData(["posts"], (oldPost) => {
         return oldPost.map((post) => {
-          if (post._id === postDetail._id) {
+          if (post._id === selectedPostData._id) {
             return {
               ...post,
               comment: [...post.comment, optimisticData],
@@ -65,7 +65,7 @@ const PostCard = ({
         <div className="bg-gray-950">
           <img
             className=" object-contain h-130 w-130 "
-            src={postDetail?.photo}
+            src={selectedPostData?.photo}
           />
         </div>
 
@@ -79,11 +79,11 @@ const PostCard = ({
                 <div className="flex items-center">
                   <img
                     className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
-                    src={postDetail?.postedBy?.pic}
+                    src={selectedPostData?.postedBy?.pic}
                   />
                   <div className="pl-4">
                     <p className="font-semibold text-sm">
-                      {postDetail?.postedBy?.userName}
+                      {selectedPostData?.postedBy?.userName}
                     </p>
                   </div>
                 </div>
@@ -110,13 +110,13 @@ const PostCard = ({
               <div className="flex items-center">
                 <img
                   className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
-                  src={postDetail?.postedBy?.pic}
+                  src={selectedPostData?.postedBy?.pic}
                 />
                 <div className="w-[33vw]">
                   <p className="font-semibold text-sm pl-4 ">
-                    {postDetail?.postedBy?.userName}
+                    {selectedPostData?.postedBy?.userName}
                     <span className="font-normal text-md pl-3">
-                      {postDetail?.description}
+                      {selectedPostData?.description}
                     </span>
                   </p>
                 </div>
@@ -124,7 +124,7 @@ const PostCard = ({
             </div>
 
             {/* others comments */}
-            {postDetail?.comment.map((com) => (
+            {selectedPostData?.comment.map((com) => (
               <div
                 key={com?._id}
                 className="flex items-center py-2 px-3 outline-none text-white "
@@ -153,7 +153,7 @@ const PostCard = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                AddComment.mutate({id: postDetail?._id, text: comment});
+                AddComment.mutate({ id: selectedPostData?._id, text: comment });
               }}
             >
               <input
@@ -175,10 +175,11 @@ const PostCard = ({
           </div>
         </div>
       </div>
+
       {showChangePostCard === true && (
         <ChangePost
           setShowChangePostCard={setShowChangePostCard}
-          postDetail={postDetail}
+          selectedPostData={selectedPostData}
           setShowPostCard={setShowPostCard}
         />
       )}
@@ -186,7 +187,7 @@ const PostCard = ({
         <PostMenu
           setShowPostMenuCard={setShowPostMenuCard}
           setShowPostCard={setShowPostCard}
-          postDetail={postDetail}
+          selectedPostData={selectedPostData}
           user={user}
         />
       )}
