@@ -36,15 +36,15 @@ const ChangePost = ({
 
   return (
     <>
-      {deletePost.isPending && (
-        <div className="flex flex-col items-center ml-[25vw] h-screen">
-          <div className="flex justify-center items-center h-screen font-bold text-white text-2xl text-center ml-[20vw]">
-            <p> Deleting the post ...</p>
+      {deletePost.isPending && ( 
+          <div className="flex flex-col items-center ml-[25vw] h-screen ">
+            <div className="flex justify-center items-center h-screen font-bold text-white text-2xl text-center ml-[20vw]">
+              <p> Deleting the post ...</p>
+            </div>
           </div>
-        </div>
       )}
-      {deletePost.isIdle && (
-        <div className="fixed inset-0 z-50 bg-gray-900/70 ">
+
+        <div className={`${deletePost.isPending ? "hidden" : "fixed"} inset-0 z-50 bg-gray-900/70`}>
           <div className="flex flex-col items-center justify-center h-screen">
             <div>
               {/* edit post btn */}
@@ -82,7 +82,7 @@ const ChangePost = ({
             </div>
           </div>
         </div>
-      )}
+
     </>
   );
 };
