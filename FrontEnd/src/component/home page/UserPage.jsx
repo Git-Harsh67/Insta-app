@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import EditPage from "./EditPage";
 import { userProfile } from "../../api/user";
-import { myPost } from "../../api/post";
 import PostCard from "./PostCard";
 import { useQuery } from "@tanstack/react-query";
 
@@ -15,50 +14,32 @@ const UserPage = () => {
     },
   });
 
-  const myPostsQuery = useQuery({
-    queryKey: ["myPosts"],
-    queryFn() {
-      return myPost();
-    },
-  });
-
   const detail = userQuery.data || [];
-  const userPosts = myPostsQuery.data?.myPosts || [];
-
-  const [userImg, setUserImg] = useState("");
-  const [userName, setUserName] = useState("");
-  const [bio, setBio] = useState("");
   const [showEditPage, setShowEditPage] = useState(false);
   const [showChangeImgCard, setShowChangeImgCard] = useState(false);
   const [showPostCard, setShowPostCard] = useState(false);
   const [showChangePostCard, setShowChangePostCard] = useState(false);
-
   const [selectedPostData, setSelectedPostData] = useState([]);
 
   return (
     <>
-      {userQuery.isLoading && myPostsQuery.isLoading && (
+    {console.log(selectedPostData)}
+      {userQuery.isLoading && (
         <div className="flex flex-col items-center ml-[25vw] h-screen">
           <div className="flex justify-center items-center h-screen font-bold text-white text-2xl text-center ml-[20vw]">
             <p>fetching the data ...</p>
           </div>
         </div>
       )}
-      {userQuery.isSuccess && myPostsQuery.isSuccess && (
+      {userQuery.isSuccess && (
         <UserPageContext.Provider
           value={{
-            userImg,
-            userName,
-            bio,
             showChangeImgCard,
             selectedPostData,
             showChangePostCard,
             detail,
-            setUserName,
             setShowEditPage,
-            setBio,
             setShowChangeImgCard,
-            setUserImg,
             setShowPostCard,
             setShowChangePostCard,
           }}
@@ -66,10 +47,10 @@ const UserPage = () => {
           {showEditPage === false && (
             <div
               className={`flex flex-col pt-5 ml-[20vw] items-center bg-gray-950 ${
-                userPosts?.length === 0 ? "h-screen" : ""
+                detail?.posts?.length === 0 ? "h-screen" : ""
               }`}
             >
-              <div className="flex gap-x-16  items-center">
+              <div className="flex gap-x-16 items-center">
                 <div>
                   <img
                     className="w-30 h-30 border-none rounded-full object-cover bg-black"
@@ -118,7 +99,7 @@ const UserPage = () => {
                 </div>
               </div>
 
-              {userPosts?.length === 0 && (
+              {detail?.posts?.length === 0 && (
                 <div className="flex justify-center items-center h-[40vh]">
                   <p className="text-white text-2xl font-medium text-center">
                     no posts
@@ -126,9 +107,9 @@ const UserPage = () => {
                 </div>
               )}
 
-              {userPosts?.length !== 0 && (
+              {detail?.posts?.length !== 0 && (
                 <div className="grid grid-cols-3 mt-1 bg-gray-950 mb-3 gap-1">
-                  {userPosts?.map((post) => (
+                  {detail?.posts?.map((post) => (
                     <div key={post._id} className=" bg-black ">
                       <img
                         onClick={() => {
@@ -146,14 +127,7 @@ const UserPage = () => {
           )}
 
           {showEditPage === true && <EditPage />}
-          {showPostCard === true && (
-            <PostCard
-              selectedPostData={selectedPostData}
-              setShowPostCard={setShowPostCard}
-              showChangePostCard={showChangePostCard}
-              setShowChangePostCard={setShowChangePostCard}
-            />
-          )}
+          {showPostCard === true && <PostCard />}
         </UserPageContext.Provider>
       )}
     </>

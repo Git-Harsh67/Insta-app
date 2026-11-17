@@ -2,17 +2,19 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ChangePost from "./PostDeleteCard";
 import PostMenu from "./PostMenuCard";
 import { addComment } from "../../api/post";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserPageContext } from "./UserPage";
 
-const PostCard = ({
-  setShowPostCard,
-  showChangePostCard,
-  setShowChangePostCard,
-  showPostMenuCard,
-  setShowPostMenuCard,
-  selectedPostData,
-  user,
-}) => {
+const PostCard = () => {
+  const {
+    setShowPostCard,
+    showChangePostCard,
+    setShowChangePostCard,
+    showPostMenuCard,
+    setShowPostMenuCard,
+    selectedPostData,
+    detail,
+  } = useContext(UserPageContext);
   const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
 
@@ -58,7 +60,6 @@ const PostCard = ({
       >
         <img className=" w-[2vw] " src="./close.png" alt="X_logo" />
       </button>
-
       {/* full card */}
       <div className="flex bg-gray-900 ">
         {/* post img */}
@@ -132,12 +133,12 @@ const PostCard = ({
                 <div className="flex items-center">
                   <img
                     className="w-10 h-10 border-none rounded-full object-contain bg-gray-950"
-                    src={user?.pic}
+                    src={detail?.user?.pic}
                   />
                   <div className="w-[33vw]">
                     <p className="font-semibold text-sm pl-4 ">
                       {/* {user?.userName} */}
-                      {user?.userName}
+                      {detail?.user?.userName}
                       <span className="font-normal text-md pl-3">
                         {com?.text}
                       </span>
@@ -149,11 +150,15 @@ const PostCard = ({
           </div>
 
           {/* add comment form */}
+          {/* {selectedPostData?.postedBy?._id !== user._id && ( */}
           <div>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                AddComment.mutate({ id: selectedPostData?._id, text: comment });
+                AddComment.mutate({
+                  id: selectedPostData?._id,
+                  text: comment,
+                });
               }}
             >
               <input
@@ -173,6 +178,7 @@ const PostCard = ({
               </button>
             </form>
           </div>
+          {/* )} */}
         </div>
       </div>
 

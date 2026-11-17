@@ -8,13 +8,13 @@ const Home = () => {
     queryKey: ["posts"],
     queryFn() {
       return feedPosts();
-    }
+    },
   });
   const userPro = useQuery({
     queryKey: ["user"],
     queryFn() {
       return userProfile();
-    }
+    },
   });
 
   const user = userPro.data?.user || [];
@@ -39,9 +39,11 @@ const Home = () => {
             </div>
           )}
 
-          {posts?.map((e) => (
-            <Cards key={e._id} selectedPostData={e} user={user}/>
-          ))}
+          {posts?.map(
+            (e) => (
+              <Cards key={e._id} selectedPostData={e} user={user} />
+            )
+          )}
         </div>
       )}
     </>
