@@ -5,16 +5,15 @@ import { addComment } from "../../api/post";
 import { useContext, useState } from "react";
 import { UserPageContext } from "./UserPage";
 
-const PostCard = () => {
-  const {
-    setShowPostCard,
-    showChangePostCard,
-    setShowChangePostCard,
-    showPostMenuCard,
-    setShowPostMenuCard,
-    selectedPostData,
-    detail,
-  } = useContext(UserPageContext);
+const PostCard = ({
+  setShowPostCard,
+  showChangePostCard,
+  setShowChangePostCard,
+  showPostMenuCard,
+  setShowPostMenuCard,
+  selectedPostData,
+  detail,
+}) => {
   const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
 
