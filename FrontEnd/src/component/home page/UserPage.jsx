@@ -1,10 +1,8 @@
-import { createContext, useEffect, useState } from "react";
+import { useState } from "react";
 import EditPage from "./EditPage";
 import { userProfile } from "../../api/user";
 import PostCard from "./PostCard";
 import { useQuery } from "@tanstack/react-query";
-
-export const UserPageContext = createContext();
 
 const UserPage = () => {
   const userQuery = useQuery({
@@ -23,7 +21,6 @@ const UserPage = () => {
 
   return (
     <>
-    {console.log(selectedPostData)}
       {userQuery.isLoading && (
         <div className="flex flex-col items-center ml-[25vw] h-screen">
           <div className="flex justify-center items-center h-screen font-bold text-white text-2xl text-center ml-[20vw]">
@@ -32,18 +29,7 @@ const UserPage = () => {
         </div>
       )}
       {userQuery.isSuccess && (
-        <UserPageContext.Provider
-          value={{
-            showChangeImgCard,
-            selectedPostData,
-            showChangePostCard,
-            detail,
-            setShowEditPage,
-            setShowChangeImgCard,
-            setShowPostCard,
-            setShowChangePostCard,
-          }}
-        >
+        <div>
           {showEditPage === false && (
             <div
               className={`flex flex-col pt-5 ml-[20vw] items-center bg-gray-950 ${
@@ -128,7 +114,7 @@ const UserPage = () => {
 
           {showEditPage === true && <EditPage />}
           {showPostCard === true && <PostCard />}
-        </UserPageContext.Provider>
+        </div>
       )}
     </>
   );

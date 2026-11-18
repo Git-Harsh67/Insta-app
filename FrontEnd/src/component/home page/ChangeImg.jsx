@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserPageContext } from "./UserPage";
 import { uploadImage } from "../../utils/uploadImage";
 
-const ChangeImg = (props) => {
+const ChangeImg = () => {
   const { setShowChangeImgCard, setUserImg } = useContext(UserPageContext);
   return (
     <div className="fixed inset-0 z-50 bg-gray-900/70 ">

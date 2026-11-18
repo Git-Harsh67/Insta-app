@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ChangePost from "./PostDeleteCard";
 import PostMenu from "./PostMenuCard";
 import { addComment } from "../../api/post";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { UserPageContext } from "./UserPage";
 
 const PostCard = ({
@@ -193,7 +193,7 @@ const PostCard = ({
           setShowPostMenuCard={setShowPostMenuCard}
           setShowPostCard={setShowPostCard}
           selectedPostData={selectedPostData}
-          user={user}
+          user={detail?.user}
         />
       )}
     </div>
